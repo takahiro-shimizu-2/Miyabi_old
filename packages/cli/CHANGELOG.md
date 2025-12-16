@@ -5,6 +5,34 @@ All notable changes to Miyabi will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.16.0] - 2025-12-16
+
+### Added
+- **TUI Dashboard**: Real-time agent status visualization
+  - Agent progress tracking with Japanese character names (しきるん, つくるん, etc.)
+  - Phase indicator and overall progress bar
+  - Activity log with timestamps
+  - Human approval section for critical operations
+- **Human-in-the-Loop Approval System**: Safety gates for critical operations
+  - Risk levels: `low`, `medium`, `high`, `critical`
+  - Approval levels: `auto`, `critical`, `all`
+  - Gate types: `deploy`, `merge`, `delete`, `publish`, `execute`
+  - Approval history tracking and summary
+- **Simplified CLI Commands**: Steve Jobs-style UX
+  - `miyabi run` - Unified command for all operations
+  - `miyabi fix` - Quick fix shortcut
+  - `miyabi build` - Build shortcut
+  - `miyabi ship` - Deploy shortcut
+- **E2E Test Suite**: Comprehensive testing
+  - TUI Dashboard tests (25 tests)
+  - Human-in-the-Loop tests (23 tests)
+  - CLI integration tests (26 tests)
+
+### Changed
+- CLI now defaults to non-interactive mode with `--yes` flag available
+- Improved error handling with graceful degradation
+- Agent names display as friendly Japanese characters
+
 ## [0.4.6] - 2025-10-08
 
 ### Fixed
