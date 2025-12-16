@@ -23,6 +23,7 @@ import { registerAutoModeCommand } from './commands/auto';
 import { registerTodosCommand } from './commands/todos';
 import { registerAuthCommand } from './commands/auth';
 import { registerDashboardCommand } from './commands/dashboard';
+import { registerRunCommand } from './commands/run';
 import { loadConfig, applyConfigToEnvironment } from './config/loader';
 import {
   reportIssueToMiyabi,
@@ -87,21 +88,17 @@ program
       console.log(chalk.gray('一つのコマンドで全てが完結する自律型開発フレームワーク\n'));
       console.log(chalk.yellow('💡 Claude Code環境が検出されました\n'));
       console.log(chalk.white('利用可能なコマンド:\n'));
-      console.log(chalk.cyan('  npx miyabi init <project-name>') + chalk.gray('  - 新規プロジェクト作成'));
-      console.log(chalk.cyan('  npx miyabi install') + chalk.gray('            - 既存プロジェクトに追加'));
-      console.log(chalk.cyan('  npx miyabi agent run <name>') + chalk.gray('   - Agent実行'));
-      console.log(chalk.cyan('  npx miyabi agent list') + chalk.gray('        - Agent一覧'));
-      console.log(chalk.cyan('  npx miyabi auto') + chalk.gray('              - 全自動モード (Water Spider)'));
-      console.log(chalk.cyan('  npx miyabi todos') + chalk.gray('             - TODOコメント自動検出'));
-      console.log(chalk.cyan('  npx miyabi status') + chalk.gray('             - ステータス確認'));
-      console.log(chalk.cyan('  npx miyabi dashboard refresh') + chalk.gray('  - ダッシュボードリフレッシュ'));
-      console.log(chalk.cyan('  npx miyabi dashboard status') + chalk.gray('   - ダッシュボード状態確認'));
-      console.log(chalk.cyan('  npx miyabi dashboard open') + chalk.gray('     - ダッシュボードを開く'));
-      console.log(chalk.cyan('  npx miyabi docs') + chalk.gray('               - ドキュメント生成'));
-      console.log(chalk.cyan('  npx miyabi config') + chalk.gray('             - 設定管理'));
-      console.log(chalk.cyan('  npx miyabi setup') + chalk.gray('              - セットアップガイド'));
-      console.log(chalk.cyan('  npx miyabi onboard') + chalk.gray('            - 初回セットアップウィザード'));
-      console.log(chalk.cyan('  npx miyabi doctor') + chalk.gray('             - ヘルスチェック・診断\n'));
+      console.log(chalk.cyan.bold('主要コマンド (Recommended):'));
+      console.log(chalk.cyan('  npx miyabi run') + chalk.gray('                - ワンコマンド実行（推奨）'));
+      console.log(chalk.cyan('  npx miyabi fix <issue>') + chalk.gray('        - バグ修正'));
+      console.log(chalk.cyan('  npx miyabi build <issue>') + chalk.gray('      - 機能追加'));
+      console.log(chalk.cyan('  npx miyabi ship') + chalk.gray('               - デプロイ（承認ゲート付き）'));
+      console.log('');
+      console.log(chalk.gray('詳細コマンド:'));
+      console.log(chalk.gray('  npx miyabi init <project-name>  - 新規プロジェクト作成'));
+      console.log(chalk.gray('  npx miyabi install              - 既存プロジェクトに追加'));
+      console.log(chalk.gray('  npx miyabi status               - ステータス確認'));
+      console.log(chalk.gray('  npx miyabi doctor               - ヘルスチェック・診断\n'));
       console.log(chalk.gray('詳細: npx miyabi --help\n'));
       process.exit(0);
     }
@@ -452,6 +449,9 @@ registerTodosCommand(program);
 
 // Register dashboard command
 registerDashboardCommand(program);
+
+// Register run command (simplified execution interface)
+registerRunCommand(program);
 
 /**
  * Handle error and report to Miyabi repository

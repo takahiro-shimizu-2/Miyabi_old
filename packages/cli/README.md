@@ -115,7 +115,24 @@ Then select from the menu:
 - 📊 **Check Status**
 - 🩺 **Health Check** (diagnostics)
 
-#### Direct Commands (Fastest)
+#### One-Command Execution (NEW! v0.15.0+)
+
+```bash
+# Magic command - interactive wizard
+npx miyabi run
+
+# Quick shortcuts
+npx miyabi fix 123          # Fix issue #123
+npx miyabi build 456        # Build feature for issue #456
+npx miyabi ship             # Deploy with approval gates
+```
+
+**Features:**
+- TUI Dashboard with real-time progress
+- Human-in-the-loop approval gates for critical actions
+- One command replaces complex agent orchestration
+
+#### Direct Commands
 
 ```bash
 # First-time setup wizard
@@ -133,9 +150,6 @@ npx miyabi install
 
 # Check agent status
 npx miyabi status --watch
-
-# Generate docs
-npx miyabi docs --input ./src --output ./docs/API.md
 ```
 
 ### For AI Agents (Claude Code, Devin) 🤖
