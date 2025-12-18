@@ -25,6 +25,7 @@ import { registerAuthCommand } from './commands/auth';
 import { registerDashboardCommand } from './commands/dashboard';
 import { registerRunCommand } from './commands/run';
 import { createOmegaCommand } from './commands/omega';
+import { registerPipelineCommand } from './commands/pipeline';
 import { loadConfig, applyConfigToEnvironment } from './config/loader';
 import {
   reportIssueToMiyabi,
@@ -456,6 +457,9 @@ registerRunCommand(program);
 
 // Register omega command (Ω-System autonomous execution)
 program.addCommand(createOmegaCommand());
+
+// Register pipeline command (command composition)
+registerPipelineCommand(program);
 
 /**
  * Handle error and report to Miyabi repository
