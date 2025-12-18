@@ -8,9 +8,9 @@
  * 4. Throws error if none available
  */
 
-import { execSync } from 'child_process';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
+import { execCommandSafe } from './cross-platform';
 
 /**
  * Get GitHub token with priority: gh CLI > env var > .env file
@@ -19,17 +19,12 @@ import { join } from 'path';
  */
 export async function getGitHubToken(): Promise<string> {
   // Priority 1: Try gh CLI authentication
-  try {
-    const token = execSync('gh auth token', {
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'ignore'], // Suppress stderr
-    }).trim();
-
+  const ghResult = execCommandSafe('gh auth token', { silent: true });
+  if (ghResult.success) {
+    const token = ghResult.output;
     if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
       return token;
     }
-  } catch (error) {
-    // gh CLI not available or not authenticated, try fallback
   }
 
   // Priority 2: Check environment variable (for CI/CD)
@@ -77,17 +72,12 @@ export async function getGitHubToken(): Promise<string> {
  */
 export function getGitHubTokenSync(): string {
   // Priority 1: Try gh CLI authentication
-  try {
-    const token = execSync('gh auth token', {
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'ignore'],
-    }).trim();
-
+  const ghResult = execCommandSafe('gh auth token', { silent: true });
+  if (ghResult.success) {
+    const token = ghResult.output;
     if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
       return token;
     }
-  } catch (error) {
-    // gh CLI not available, try fallback
   }
 
   // Priority 2: Check environment variable
@@ -129,15 +119,8 @@ export function getGitHubTokenSync(): string {
  * @returns true if gh CLI is authenticated
  */
 export function isGhCliAuthenticated(): boolean {
-  try {
-    execSync('gh auth status', {
-      encoding: 'utf-8',
-      stdio: 'ignore',
-    });
-    return true;
-  } catch (error) {
-    return false;
-  }
+  const result = execCommandSafe('gh auth status', { silent: true });
+  return result.success;
 }
 
 /**

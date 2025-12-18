@@ -6,8 +6,8 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { execSync } from 'child_process';
 import { fileURLToPath } from 'url';
+import { execCommand } from '../utils/cross-platform';
 
 // ESM equivalent of __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -28,7 +28,7 @@ export async function cloneAndSetup(
   options: LocalSetupOptions = {}
 ): Promise<void> {
   // Clone repository
-  execSync(`git clone ${cloneUrl} ${projectName}`, {
+  execCommand(`git clone ${cloneUrl} ${projectName}`, {
     stdio: 'inherit',
   });
 
@@ -61,7 +61,7 @@ export async function cloneAndSetup(
 
   // Install dependencies
   if (!options.skipInstall) {
-    execSync('npm install', {
+    execCommand('npm install', {
       cwd: projectPath,
       stdio: 'inherit',
     });

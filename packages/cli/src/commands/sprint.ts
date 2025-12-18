@@ -223,32 +223,33 @@ export async function sprintStart(sprintName: string, options: SprintOptions = {
  */
 async function getRepositoryInfo(): Promise<{ owner: string; repo: string; token: string }> {
   // Get git remote
-  const { execSync } = await import('child_process');
+  const { execCommandSafe } = await import('../utils/cross-platform');
 
-  try {
-    const remote = execSync('git remote get-url origin', { encoding: 'utf-8' }).trim();
-
-    // Parse GitHub URL
-    const match = remote.match(/github\.com[:/](.+?)\/(.+?)(\.git)?$/);
-    if (!match) {
-      throw new Error('Could not parse GitHub repository URL');
-    }
-
-    const owner = match[1];
-    const repo = match[2];
-
-    // Get GitHub token
-    const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
-    if (!token) {
-      throw new Error(
-        'GitHub token not found. Set GITHUB_TOKEN or GH_TOKEN environment variable, or run: gh auth login'
-      );
-    }
-
-    return { owner, repo, token };
-  } catch (error: any) {
-    throw new Error(`Repository detection failed: ${error.message}`);
+  const result = execCommandSafe('git remote get-url origin', { silent: true });
+  if (!result.success) {
+    throw new Error('Could not get git remote URL');
   }
+
+  const remote = result.output;
+
+  // Parse GitHub URL
+  const match = remote.match(/github\.com[:/](.+?)\/(.+?)(\.git)?$/);
+  if (!match) {
+    throw new Error('Could not parse GitHub repository URL');
+  }
+
+  const owner = match[1];
+  const repo = match[2];
+
+  // Get GitHub token
+  const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
+  if (!token) {
+    throw new Error(
+      'GitHub token not found. Set GITHUB_TOKEN or GH_TOKEN environment variable, or run: gh auth login'
+    );
+  }
+
+  return { owner, repo, token };
 }
 
 /**

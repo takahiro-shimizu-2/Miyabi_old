@@ -5,8 +5,8 @@
  */
 
 import * as fs from 'fs';
-import { execSync } from 'child_process';
 import { Octokit } from '@octokit/rest';
+import { execCommandSafe } from '../utils/cross-platform';
 
 export interface ProjectAnalysis {
   repo: string;
@@ -61,16 +61,16 @@ export async function analyzeProject(): Promise<ProjectAnalysis> {
  * Get repository owner and name from git remote
  */
 function getRepositoryInfo(): { owner: string; repo: string } {
-  try {
-    const remoteUrl = execSync('git remote get-url origin', { encoding: 'utf-8' }).trim();
+  const result = execCommandSafe('git remote get-url origin', { silent: true });
 
-    const match = remoteUrl.match(/github\.com[/:]([^/]+)\/(.+?)(?:\.git)?$/);
-
-    if (match) {
-      return { owner: match[1], repo: match[2] };
-    }
-  } catch {
+  if (!result.success) {
     throw new Error('Not a git repository or no origin remote found');
+  }
+
+  const match = result.output.match(/github\.com[/:]([^/]+)\/(.+?)(?:\.git)?$/);
+
+  if (match) {
+    return { owner: match[1], repo: match[2] };
   }
 
   throw new Error('Could not parse repository information');

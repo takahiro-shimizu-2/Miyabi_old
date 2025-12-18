@@ -5,12 +5,12 @@
 
 import chalk from 'chalk';
 import ora from 'ora';
-import { execSync } from 'child_process';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
 import yaml from 'yaml';
 import { Octokit } from '@octokit/rest';
 import { getGitHubToken } from '../utils/github-token';
+import { execCommandSafe } from '../utils/cross-platform';
 
 /**
  * Get GitHub token without throwing error
@@ -164,15 +164,15 @@ async function checkNodeVersion(): Promise<HealthCheck> {
  * Check Git installation
  */
 async function checkGit(): Promise<HealthCheck> {
-  try {
-    const version = execSync('git --version', { encoding: 'utf-8', stdio: 'pipe' }).trim();
+  const result = execCommandSafe('git --version', { silent: true });
+  if (result.success) {
     return {
       name: 'Git',
       status: 'pass',
-      message: `${version} (OK)`,
+      message: `${result.output} (OK)`,
       details: 'Git is installed and accessible',
     };
-  } catch (error) {
+  } else {
     return {
       name: 'Git',
       status: 'fail',
@@ -187,36 +187,36 @@ async function checkGit(): Promise<HealthCheck> {
  * Check GitHub CLI
  */
 async function checkGitHubCLI(): Promise<HealthCheck> {
-  try {
-    const version = execSync('gh --version', { encoding: 'utf-8', stdio: 'pipe' })
-      .split('\n')[0]
-      .trim();
+  const versionResult = execCommandSafe('gh --version', { silent: true });
 
-    // Check if authenticated
-    try {
-      execSync('gh auth status', { encoding: 'utf-8', stdio: 'pipe' });
-      return {
-        name: 'GitHub CLI',
-        status: 'pass',
-        message: `${version} (Authenticated)`,
-        details: 'GitHub CLI is installed and authenticated',
-      };
-    } catch {
-      return {
-        name: 'GitHub CLI',
-        status: 'warn',
-        message: `${version} (Not authenticated)`,
-        suggestion: "Run 'gh auth login' to authenticate",
-        details: 'GitHub CLI is installed but not authenticated',
-      };
-    }
-  } catch (error) {
+  if (!versionResult.success) {
     return {
       name: 'GitHub CLI',
       status: 'warn',
       message: 'Not installed',
       suggestion: 'Install GitHub CLI: https://cli.github.com',
       details: 'GitHub CLI provides easier authentication (recommended but optional)',
+    };
+  }
+
+  const version = versionResult.output.split('\n')[0].trim();
+
+  // Check if authenticated
+  const authResult = execCommandSafe('gh auth status', { silent: true });
+  if (authResult.success) {
+    return {
+      name: 'GitHub CLI',
+      status: 'pass',
+      message: `${version} (Authenticated)`,
+      details: 'GitHub CLI is installed and authenticated',
+    };
+  } else {
+    return {
+      name: 'GitHub CLI',
+      status: 'warn',
+      message: `${version} (Not authenticated)`,
+      suggestion: "Run 'gh auth login' to authenticate",
+      details: 'GitHub CLI is installed but not authenticated',
     };
   }
 }
@@ -360,39 +360,31 @@ async function checkNetworkConnectivity(): Promise<HealthCheck> {
  * Check repository configuration
  */
 async function checkRepositoryConfig(): Promise<HealthCheck | null> {
-  try {
-    // Check if we're in a git repository
-    const gitDir = execSync('git rev-parse --git-dir', {
-      encoding: 'utf-8',
-      stdio: 'pipe',
-    }).trim();
+  // Check if we're in a git repository
+  const gitDirResult = execCommandSafe('git rev-parse --git-dir', { silent: true });
 
-    if (!gitDir) return null;
-
-    // Get remote URL
-    try {
-      const remoteUrl = execSync('git remote get-url origin', {
-        encoding: 'utf-8',
-        stdio: 'pipe',
-      }).trim();
-
-      return {
-        name: 'Repository',
-        status: 'pass',
-        message: 'Git repository detected',
-        details: `Remote: ${remoteUrl}`,
-      };
-    } catch {
-      return {
-        name: 'Repository',
-        status: 'warn',
-        message: 'No remote configured',
-        suggestion: 'Add remote: git remote add origin <url>',
-        details: 'Local git repository without remote',
-      };
-    }
-  } catch {
+  if (!gitDirResult.success || !gitDirResult.output) {
     return null; // Not in a git repository
+  }
+
+  // Get remote URL
+  const remoteResult = execCommandSafe('git remote get-url origin', { silent: true });
+
+  if (remoteResult.success) {
+    return {
+      name: 'Repository',
+      status: 'pass',
+      message: 'Git repository detected',
+      details: `Remote: ${remoteResult.output}`,
+    };
+  } else {
+    return {
+      name: 'Repository',
+      status: 'warn',
+      message: 'No remote configured',
+      suggestion: 'Add remote: git remote add origin <url>',
+      details: 'Local git repository without remote',
+    };
   }
 }
 

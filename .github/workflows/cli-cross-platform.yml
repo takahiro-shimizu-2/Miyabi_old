@@ -1,0 +1,117 @@
+name: CLI Cross-Platform Tests
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'packages/cli/**'
+      - '.github/workflows/cli-cross-platform.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/cli/**'
+
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: [18, 20]
+      fail-fast: false
+
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        working-directory: packages/cli
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Run unit tests
+        run: npm test
+        continue-on-error: true
+
+      - name: Verify CLI works
+        run: node dist/index.js --version
+
+      - name: Test CLI help
+        run: node dist/index.js --help
+
+      - name: Test doctor command (JSON output)
+        run: node dist/index.js doctor --json
+        continue-on-error: true
+
+  # Additional Windows-specific tests
+  windows-integration:
+    runs-on: windows-latest
+    needs: build-and-test
+
+    defaults:
+      run:
+        working-directory: packages/cli
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Test in PowerShell
+        shell: pwsh
+        run: |
+          node dist/index.js --version
+          node dist/index.js doctor --json
+
+      - name: Test in CMD
+        shell: cmd
+        run: |
+          node dist/index.js --version
+          node dist/index.js doctor --json
+
+  # Global install test
+  global-install:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install globally from source
+        run: npm install -g ./packages/cli
+
+      - name: Verify global install
+        run: miyabi --version
+
+      - name: Test global doctor
+        run: miyabi doctor --json
+        continue-on-error: true

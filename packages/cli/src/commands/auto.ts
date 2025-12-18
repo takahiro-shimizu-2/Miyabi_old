@@ -11,7 +11,7 @@ import { Command } from 'commander';
 import type { AgentType } from './agent';
 import { runAgent } from './agent';
 import { Octokit } from '@octokit/rest';
-import { execSync } from 'child_process';
+import { execCommandSafe } from '../utils/cross-platform';
 
 /**
  * Auto Mode設定
@@ -69,18 +69,13 @@ interface WaterSpiderState {
  * GitHubリポジトリ情報を取得
  */
 function getGitHubRepo(): { owner: string; repo: string } | null {
-  try {
-    const remoteUrl = execSync('git remote get-url origin', {
-      encoding: 'utf-8',
-      stdio: ['pipe', 'pipe', 'ignore'],
-    }).trim();
+  const result = execCommandSafe('git remote get-url origin', { silent: true });
 
-    const match = remoteUrl.match(/github\.com[:/](.+?)\/(.+?)(\.git)?$/);
+  if (result.success) {
+    const match = result.output.match(/github\.com[:/](.+?)\/(.+?)(\.git)?$/);
     if (match) {
       return { owner: match[1], repo: match[2] };
     }
-  } catch {
-    // Git repository not found
   }
 
   return null;

@@ -36,17 +36,23 @@ const colors = {
 
 /**
  * Check if we're in a user project (not in Miyabi's own node_modules)
+ * Cross-platform: handles both Unix and Windows paths
  */
 function isUserProject() {
-  const cwd = process.cwd();
+  // Normalize path to use forward slashes for consistent checking
+  const cwd = process.cwd().replace(/\\/g, '/').toLowerCase();
 
   // Skip if we're inside Miyabi's own directory
-  if (cwd.includes('/Miyabi/') || cwd.includes('/Autonomous-Operations/')) {
+  if (cwd.includes('/miyabi/') || cwd.includes('/autonomous-operations/')) {
     return false;
   }
 
-  // Skip if we're in the global npm directory
-  if (cwd.includes('/.npm/') || cwd.includes('/lib/node_modules/')) {
+  // Skip if we're in the global npm directory (Unix or Windows)
+  if (cwd.includes('/.npm/') ||
+      cwd.includes('/lib/node_modules/') ||
+      cwd.includes('/node_modules/miyabi') ||
+      cwd.includes('/appdata/roaming/npm/') ||
+      cwd.includes('/appdata/local/npm/')) {
     return false;
   }
 
@@ -182,10 +188,11 @@ async function checkEnvironment() {
   const nodeMajor = parseInt(nodeVersion.slice(1).split('.')[0]);
   checks.node = nodeMajor >= 18;
 
-  // Check if git is available
+  // Check if git is available (cross-platform)
   try {
     const { execSync } = await import('child_process');
-    execSync('git --version', { stdio: 'ignore' });
+    // Use shell: true for Windows compatibility
+    execSync('git --version', { stdio: 'ignore', shell: true });
     checks.git = true;
   } catch (error) {
     checks.git = false;
