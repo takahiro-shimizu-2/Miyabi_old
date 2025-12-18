@@ -8,6 +8,7 @@
  * Usage: npm run webhook:flush
  */
 
+// @ts-expect-error - JS module without type declarations
 import { flushWebhookQueue, checkWebhookServer } from '../.claude/hooks/webhook-fallback.js';
 
 async function main() {

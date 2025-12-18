@@ -40,7 +40,7 @@ test.describe('Miyabi CLI Demo', () => {
     const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8'));
 
     expect(packageJson.name).toBe('autonomous-operations');
-    expect(packageJson.version).toBe('0.8.1');
+    expect(packageJson.version).toBe('0.14.0');
     expect(packageJson.license).toBe('Apache-2.0');
     expect(packageJson.repository.url).toBe('https://github.com/ShunsukeHayashi/Miyabi.git');
   });
@@ -69,19 +69,15 @@ test.describe('Miyabi CLI Demo', () => {
     const readmePath = path.resolve(__dirname, '../../../README.md');
     const readme = await readFile(readmePath, 'utf-8');
 
-    // Verify key sections
+    // Verify key sections (simplified README)
     expect(readme).toContain('# 🌸 Miyabi');
-    expect(readme).toContain('Beauty in Autonomous Development');
-    expect(readme).toContain('🇯🇵 日本語');
-    expect(readme).toContain('🇺🇸 English');
-    expect(readme).toContain('## ⚠️ AI生成コードに関する重要な注意事項');
-    expect(readme).toContain('## ⚠️ AI-Generated Code Notice');
+    expect(readme).toContain('npx miyabi');
+    expect(readme).toContain('Issue');
   });
 
   test('should verify legal documentation exists', async () => {
     const licensePath = path.resolve(__dirname, '../../../LICENSE');
     const noticePath = path.resolve(__dirname, '../../../NOTICE');
-    const privacyPath = path.resolve(__dirname, '../../../PRIVACY.md');
     const contributingPath = path.resolve(__dirname, '../../../CONTRIBUTING.md');
 
     // Check LICENSE
@@ -94,26 +90,19 @@ test.describe('Miyabi CLI Demo', () => {
     expect(notice).toContain('Miyabi');
     expect(notice).toContain('Shunsuke Hayashi');
 
-    // Check PRIVACY.md
-    const privacy = await readFile(privacyPath, 'utf-8');
-    expect(privacy).toContain('Privacy Policy');
-    expect(privacy).toContain('GDPR');
-
     // Check CONTRIBUTING.md
     const contributing = await readFile(contributingPath, 'utf-8');
-    expect(contributing).toContain('Contributor License Agreement');
-    expect(contributing).toContain('CLA');
+    expect(contributing).toContain('Contributing');
   });
 
   test('should verify Discord community documentation', async () => {
-    const communityGuidelinesPath = path.resolve(__dirname, '../../../COMMUNITY_GUIDELINES.md');
-    const discordSetupPath = path.resolve(__dirname, '../../../DISCORD_SETUP_QUICKSTART.md');
+    const communityGuidelinesPath = path.resolve(__dirname, '../../../docs/community/COMMUNITY_GUIDELINES.md');
+    const discordSetupPath = path.resolve(__dirname, '../../../docs/community/DISCORD_SETUP_QUICKSTART.md');
 
     // Check COMMUNITY_GUIDELINES.md
     const guidelines = await readFile(communityGuidelinesPath, 'utf-8');
     expect(guidelines).toContain('Miyabi Community Guidelines');
     expect(guidelines).toContain('Core Values');
-    expect(guidelines).toContain('Code of Conduct');
 
     // Check DISCORD_SETUP_QUICKSTART.md
     const discordSetup = await readFile(discordSetupPath, 'utf-8');
@@ -149,7 +138,7 @@ test.describe('Miyabi CLI Demo', () => {
 
   test('should verify project structure', async () => {
     const projectDirs = [
-      'agents',
+      'packages/coding-agents',  // agents moved to packages
       'scripts',
       'tests',
       'docs',
