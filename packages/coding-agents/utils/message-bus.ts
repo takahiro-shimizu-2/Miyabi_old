@@ -260,7 +260,7 @@ export class MessageBus extends EventEmitter {
           );
         }
       } catch (error) {
-        logger.error(`Error processing message ${message.id}:`, error);
+        logger.error(`Error processing message ${message.id}:`, error instanceof Error ? error : undefined);
         this.emit('message:error', { message, error });
 
         // Emit error response

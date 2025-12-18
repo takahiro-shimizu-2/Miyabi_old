@@ -33,7 +33,7 @@ import { logger, type AgentName } from './ui/index';
 import { PerformanceMonitor } from './monitoring/performance-monitor';
 import { IssueTraceLogger } from './logging/issue-trace-logger';
 import { globalMessageBus } from './utils/message-bus';
-import { globalMetricsCollector } from '../.claude/monitoring/metrics-collector';
+import { globalMetricsCollector } from './monitoring/global-metrics';
 import { writeFileAsync, appendFileAsync } from '@miyabi/shared-utils';
 import * as fs from 'fs';
 import * as path from 'path';

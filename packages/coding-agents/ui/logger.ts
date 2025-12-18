@@ -132,6 +132,14 @@ export class RichLogger {
   }
 
   /**
+   * System message (for internal operations)
+   */
+  system(message: string, options: LogOptions = {}): void {
+    const styled = chalk.hex(theme.colors.muted).dim(`[SYS] ${message}`);
+    this.log(styled, options);
+  }
+
+  /**
    * Agent-specific message
    */
   agent(agentName: AgentName, message: string, options: LogOptions = {}): void {

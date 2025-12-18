@@ -310,6 +310,17 @@ export class IssueTraceLogger {
     this.saveTrace();
   }
 
+  /**
+   * Record agent message for inter-agent communication tracking
+   */
+  public recordAgentMessage(message: { from: AgentType; to: AgentType; type: string; id: string }): void {
+    this.addNote(
+      message.from,
+      `Message [${message.type}] sent to ${message.to} (id: ${message.id})`,
+      ['agent-message', message.type]
+    );
+  }
+
   // ============================================================================
   // Notes & Annotations
   // ============================================================================
