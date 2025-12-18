@@ -21,7 +21,7 @@
     "INSTALL_TO_EXISTING_PROJECT.md"
   ],
   "scripts": {
-    "build": "tsc && chmod +x dist/index.js",
+    "build": "tsc && node scripts/fix-esm-imports.js && chmod +x dist/index.js",
     "dev": "tsx src/index.ts",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "test": "vitest run",

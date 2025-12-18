@@ -164,18 +164,6 @@ async function getCurrentRepo(): Promise<{ owner: string; name: string } | null>
 
 
 /**
- * Parse Issue number from string, stripping # prefix if present
- * Handles both "123" and "#123" formats from auto.js
- * @param issueStr - Issue number as string or number
- * @returns Parsed issue number
- */
-function parseIssueNumber(issueStr: string | number): number {
-  if (typeof issueStr === 'string') {
-    return parseInt(issueStr.replace(/^#/, ''), 10);
-  }
-  return parseInt(String(issueStr), 10);
-}
-/**
  * Parse issue number from string (handles both "#9" and "9" formats)
  * Fixes: Issue #155 - Water Spider Auto mode: parseInt("#9") returns NaN
  * @param issueInput - Issue number as string (e.g., "9" or "#9")
