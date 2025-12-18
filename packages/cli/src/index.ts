@@ -24,6 +24,7 @@ import { registerTodosCommand } from './commands/todos';
 import { registerAuthCommand } from './commands/auth';
 import { registerDashboardCommand } from './commands/dashboard';
 import { registerRunCommand } from './commands/run';
+import { createOmegaCommand } from './commands/omega';
 import { loadConfig, applyConfigToEnvironment } from './config/loader';
 import {
   reportIssueToMiyabi,
@@ -452,6 +453,9 @@ registerDashboardCommand(program);
 
 // Register run command (simplified execution interface)
 registerRunCommand(program);
+
+// Register omega command (Ω-System autonomous execution)
+program.addCommand(createOmegaCommand());
 
 /**
  * Handle error and report to Miyabi repository
