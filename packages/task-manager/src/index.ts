@@ -15,8 +15,14 @@ export {
   type TransitionResult,
 } from './state/task-state-machine.js';
 
-// TODO: Export decomposition classes when implemented
-// export { LLMDecomposer } from './decomposition/llm-decomposer.js';
+// Decomposition
+export {
+  LLMDecomposer,
+  DecompositionValidator,
+  SYSTEM_PROMPT,
+  buildDecompositionPrompt,
+  buildSimplePrompt,
+} from './decomposition/index.js';
 
 // TODO: Export sync classes when implemented
 // export { GitHubLabelSync } from './sync/github-label-sync.js';
