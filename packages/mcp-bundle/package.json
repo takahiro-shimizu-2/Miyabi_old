@@ -83,23 +83,23 @@
     "win32"
   ],
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.0.4",
-    "@octokit/rest": "^20.0.2",
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "@octokit/rest": "^21.1.1",
     "glob": "^10.3.10",
     "simple-git": "^3.27.0",
     "systeminformation": "^5.21.20",
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/node": "^20.10.0",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
-    "@vitest/coverage-v8": "^1.0.0",
-    "eslint": "^8.56.0",
+    "@types/node": "^22.15.0",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^8.57.1",
     "tsx": "^4.7.0",
     "typedoc": "^0.28.15",
-    "typescript": "^5.3.3",
-    "vitest": "^1.0.0"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   },
   "files": [
     "dist",
