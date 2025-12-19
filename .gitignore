@@ -136,3 +136,8 @@ external/data/*.db
 # Temporary directories (removed in consolidation)
 hooks/
 playwright-report/
+
+# Local files
+SETUP_GUIDE.md
+playwright-results.json
+.specstory/
