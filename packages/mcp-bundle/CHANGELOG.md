@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.7.1] - 2025-12-19
+
+### Changed
+- **Dependencies Updated**:
+  - `@modelcontextprotocol/sdk`: 1.0.4 → 1.20.0
+  - `@octokit/rest`: 20.0.2 → 21.1.1
+  - `@typescript-eslint/*`: 6.x → 8.50.0
+  - `vitest`: 1.0.0 → 3.2.4
+  - `@types/node`: 20.x → 22.15.0
+  - `typescript`: 5.3.3 → 5.8.3
+
 ## [3.6.0] - 2025-12-15
 
 ### Added

@@ -5,6 +5,29 @@ All notable changes to Miyabi will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.19.0] - 2025-12-19
+
+### Added
+- **7 Claude Skills**: Reusable skill templates in directory format
+  - `code-reviewer/` - Code review with quality scoring
+  - `commit-helper/` - Conventional Commits message generation
+  - `refactor-helper/` - Safe code refactoring guidance
+  - `test-generator/` - Unit test generation
+  - `doc-generator/` - Documentation generation
+  - `skill-creator/` - Meta-skill for creating new skills
+  - `autonomous-coding-agent/` - CLI integration for autonomous workflows
+
+### Changed
+- **Dependencies Updated** (Breaking Changes):
+  - `@anthropic-ai/sdk`: 0.65.0 → 0.71.2
+  - `@octokit/rest`: 20.x → 21.1.1
+  - `@octokit/graphql`: 7.x → 8.2.1
+  - `vitest`: unified to 3.2.4
+  - `@types/node`: 20.x → 22.15.0
+
+### Fixed
+- Windows cross-platform support in `docs.ts` (Issue #164)
+
 ## [0.18.0] - 2025-12-19
 
 ### Added
