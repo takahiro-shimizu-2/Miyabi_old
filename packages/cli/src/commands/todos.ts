@@ -42,6 +42,8 @@ export interface TodosAutoOptions {
   dryRun?: boolean;
   /** 詳細ログ */
   verbose?: boolean;
+  /** JSON出力 */
+  json?: boolean;
 }
 
 /**
@@ -193,6 +195,44 @@ export async function runTodosAutoMode(
 ): Promise<void> {
   const targetPath = options.path || process.cwd();
 
+  // JSON出力モード
+  if (options.json) {
+    const todos = scanDirectory(targetPath);
+    const sortedTodos = todos.sort((a, b) => a.priority - b.priority);
+
+    const stats = sortedTodos.reduce((acc, todo) => {
+      acc[todo.type] = (acc[todo.type] || 0) + 1;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const result = {
+      success: true,
+      data: {
+        todos: sortedTodos.map(t => ({
+          type: t.type,
+          description: t.description,
+          file: t.file,
+          line: t.line,
+          priority: t.priority,
+        })),
+        stats: {
+          total: todos.length,
+          byType: stats,
+        },
+        options: {
+          path: targetPath,
+          dryRun: options.dryRun || false,
+          createIssues: options.createIssues || false,
+          autoExecute: options.autoExecute || false,
+        },
+      },
+      timestamp: new Date().toISOString(),
+    };
+
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
   console.log(chalk.cyan.bold('\n📝 Todos Auto Mode 起動\n'));
   console.log(chalk.white('リポジトリ内のTODOコメントを自動検出・処理します\n'));
   console.log(chalk.gray(`スキャン対象: ${targetPath}\n`));
@@ -308,7 +348,10 @@ export function registerTodosCommand(program: Command): void {
     .option('--dry-run', '実行シミュレーション')
     .option('-v, --verbose', '詳細ログ出力')
     .option('--json', 'JSON形式で出力')
-    .action(async (options: TodosAutoOptions & { json?: boolean }) => {
-      await runTodosAutoMode(options);
+    .action(async (options: TodosAutoOptions, command: Command) => {
+      // Get global --json option from parent command (miyabi --json todos)
+      // OR local --json option (miyabi todos --json)
+      const json = options.json || command.parent?.opts().json || false;
+      await runTodosAutoMode({ ...options, json });
     });
 }

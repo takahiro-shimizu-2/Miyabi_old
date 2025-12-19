@@ -81,7 +81,71 @@ export async function authLogout(): Promise<void> {
 /**
  * Status command - Check authentication status
  */
-export async function authStatus(): Promise<void> {
+export async function authStatus(json = false): Promise<void> {
+  // JSON出力モード
+  if (json) {
+    const result: {
+      success: boolean;
+      data: {
+        authenticated: boolean;
+        source?: 'environment' | 'credentials';
+        valid?: boolean;
+        user?: string;
+        userId?: number;
+        scopes?: string[];
+      };
+      timestamp: string;
+    } = {
+      success: true,
+      data: {
+        authenticated: false,
+      },
+      timestamp: new Date().toISOString(),
+    };
+
+    // Check environment variable
+    const envToken = process.env.GITHUB_TOKEN;
+    if (envToken) {
+      result.data.source = 'environment';
+      result.data.valid = await verifyToken(envToken);
+      if (result.data.valid) {
+        result.data.authenticated = true;
+        try {
+          const octokit = new Octokit({ auth: envToken });
+          const { data: user } = await octokit.users.getAuthenticated();
+          result.data.user = user.login;
+          result.data.userId = user.id;
+        } catch {
+          // User info optional
+        }
+      }
+      console.log(JSON.stringify(result, null, 2));
+      return;
+    }
+
+    // Check credentials file
+    const credentials = loadCredentials();
+    if (credentials) {
+      result.data.source = 'credentials';
+      result.data.valid = await verifyToken(credentials.github_token);
+      if (result.data.valid) {
+        result.data.authenticated = true;
+        try {
+          const octokit = new Octokit({ auth: credentials.github_token });
+          const { data: user } = await octokit.users.getAuthenticated();
+          result.data.user = user.login;
+          result.data.userId = user.id;
+        } catch {
+          // User info optional
+        }
+      }
+    }
+
+    console.log(JSON.stringify(result, null, 2));
+    return;
+  }
+
+  // Human-readable output
   console.log(chalk.cyan.bold('\n📊 Authentication Status\n'));
 
   // Check environment variable
@@ -172,9 +236,13 @@ export function registerAuthCommand(program: Command): void {
   auth
     .command('status')
     .description('Check authentication status')
-    .action(async () => {
+    .option('--json', 'JSON output for AI agents')
+    .action(async (options: { json?: boolean }, command: Command) => {
       try {
-        await authStatus();
+        // Get global --json option from parent command (miyabi --json auth status)
+        // OR local --json option (miyabi auth status --json)
+        const json = options.json || command.parent?.parent?.opts().json || false;
+        await authStatus(json);
       } catch (error) {
         if (error instanceof Error) {
           console.error(chalk.red(`\nError: ${error.message}\n`));
