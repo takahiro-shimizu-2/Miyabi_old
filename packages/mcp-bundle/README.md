@@ -7,7 +7,7 @@
 [![npm version](https://img.shields.io/npm/v/miyabi-mcp-bundle?style=flat-square&logo=npm)](https://www.npmjs.com/package/miyabi-mcp-bundle)
 [![npm downloads](https://img.shields.io/npm/dm/miyabi-mcp-bundle?style=flat-square)](https://www.npmjs.com/package/miyabi-mcp-bundle)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.3-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 **172+ MCP Tools** | **Enterprise Security** | **Zero Config**
 
@@ -22,6 +22,13 @@
 - **Claude Code** (Anthropic's official CLI)
 - **OpenAI Codex CLI**
 - AI Agent developers building LLM-powered tools
+
+## What's New in v3.7.1
+
+- **@modelcontextprotocol/sdk** 1.0.4 → 1.20.0
+- **@octokit/rest** 20.x → 21.1.1
+- **TypeScript** 5.3 → 5.8
+- **vitest** 1.0 → 3.2.4
 
 ## Features
 

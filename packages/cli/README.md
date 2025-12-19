@@ -22,6 +22,21 @@ Designed for both humans and AI agents (Claude Code, Devin, etc.)
 
 ---
 
+## 🆕 What's New in v0.19.0
+
+- **7 Claude Skills** - Reusable workflow templates
+  - `code-reviewer` - Code review with quality scoring
+  - `commit-helper` - Conventional Commits generation
+  - `test-generator` - Unit test generation
+  - `doc-generator` - Documentation generation
+  - `refactor-helper` - Safe refactoring guidance
+  - `skill-creator` - Create custom skills
+  - `autonomous-coding-agent` - CLI automation workflows
+- **Windows Support** - Full cross-platform compatibility
+- **Dependencies Updated** - @anthropic-ai/sdk 0.71, @octokit/rest 21
+
+---
+
 ## ✨ What is Miyabi?
 
 **Miyabi** (雅 - Japanese for "elegance") transforms your development workflow with **one command**.
@@ -115,7 +130,7 @@ Then select from the menu:
 - 📊 **Check Status**
 - 🩺 **Health Check** (diagnostics)
 
-#### One-Command Execution (NEW! v0.15.0+)
+#### One-Command Execution (v0.15.0+)
 
 ```bash
 # Magic command - interactive wizard
