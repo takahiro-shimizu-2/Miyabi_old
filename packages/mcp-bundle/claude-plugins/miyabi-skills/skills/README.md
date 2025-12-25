@@ -3,7 +3,7 @@
 **Version**: 2.0.0
 **Last Updated**: 2025-11-22
 **Priority**: ⭐⭐⭐⭐⭐ (P0 Level)
-**Total Skills**: 21 Skills (16 Technical + 5 Business)
+**Total Skills**: 23 Skills (18 Technical + 5 Business)
 
 ---
 
@@ -86,6 +86,8 @@ graph TD
 | 14 | **voicevox** | 音声合成統合 | Bash, API | "speak", "narrate" |
 | 15 | **paper2agent** | 論文→Agent変換 | Read, Write | "paper to agent", "research" |
 | 16 | **tdd-workflow** | TDD Red-Green-Refactor | Bash, Write | "TDD", "write tests first" |
+| 17 | **mcp-context-optimizer** | MCPツールコンテキスト最適化 | MCP Tools | "find tool", "search mcp", "which tool" |
+| 18 | **full-dev-cycle** | Git→PR→Docker統合ワークフロー | Git, GitHub, Docker | "deploy changes", "full cycle", "commit and deploy" |
 
 ### Business Skills (5個)
 
@@ -343,6 +345,13 @@ rust-development (build + test) → agent-execution (parallel) → git-workflow 
 | 4 | market-research | Medium | 市場検証 |
 | 5 | business-strategy | Medium | 戦略立案 |
 
+### Context/MCP Optimization Skills
+
+| 順位 | Skill | 頻度 | 主な用途 |
+|------|-------|------|----------|
+| 1 | mcp-context-optimizer | Very High | ツール検索・コンテキスト最適化 |
+| 2 | full-dev-cycle | High | 統合開発ワークフロー |
+
 ---
 
 ## 🔗 関連ドキュメント
@@ -358,6 +367,9 @@ rust-development (build + test) → agent-execution (parallel) → git-workflow 
 
 ## 📝 バージョン履歴
 
+- **2.1.0** (2025-12-25): MCP最適化スキル追加
+  - mcp-context-optimizer: Progressive Disclosureパターンによるコンテキスト最適化
+  - full-dev-cycle: Git→GitHub PR→Docker統合ワークフロー
 - **2.0.0** (2025-11-22): rust-tool-use-rulesスタイルで全面改訂
   - P0-P3優先順位階層導入
   - 最適化パターン明確化
