@@ -23,6 +23,8 @@ Personal development workspace with 4 projects.
 
 See `.skills/` for advanced workflows.
 
+**Guide**: [docs/SKILLS_GUIDE.md](docs/SKILLS_GUIDE.md)
+
 ## MCP Integration
 
 miyabi-mcp-bundle (194 tools) configured in Claude Desktop.
