@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { userEvent } from '@testing-library/user-event';
 import WorkflowsListPage from '../page';
 import { workflowApi } from '@/lib/api-client';
 import type { Workflow } from '@/lib/types';
@@ -136,7 +136,7 @@ describe('WorkflowsListPage', () => {
   });
 
   it('should delete workflow when confirmed', async () => {
-    const user = userEvent.setup();
+    
     vi.mocked(workflowApi.list).mockResolvedValue(mockWorkflows);
     vi.mocked(workflowApi.delete).mockResolvedValue();
     mockConfirm.mockReturnValue(true);
@@ -147,7 +147,7 @@ describe('WorkflowsListPage', () => {
     });
 
     const deleteButtons = screen.getAllByText('Delete');
-    await user.click(deleteButtons[0]);
+    await userEvent.click(deleteButtons[0]);
 
     await waitFor(() => {
       expect(workflowApi.delete).toHaveBeenCalledWith('workflow-1');
@@ -155,7 +155,7 @@ describe('WorkflowsListPage', () => {
   });
 
   it('should not delete workflow when cancelled', async () => {
-    const user = userEvent.setup();
+    
     vi.mocked(workflowApi.list).mockResolvedValue(mockWorkflows);
     mockConfirm.mockReturnValue(false);
 
@@ -165,13 +165,13 @@ describe('WorkflowsListPage', () => {
     });
 
     const deleteButtons = screen.getAllByText('Delete');
-    await user.click(deleteButtons[0]);
+    await userEvent.click(deleteButtons[0]);
 
     expect(workflowApi.delete).not.toHaveBeenCalled();
   });
 
   it('should show alert when delete fails', async () => {
-    const user = userEvent.setup();
+    
     vi.mocked(workflowApi.list).mockResolvedValue(mockWorkflows);
     vi.mocked(workflowApi.delete).mockRejectedValue(new Error('Delete failed'));
     mockConfirm.mockReturnValue(true);
@@ -182,7 +182,7 @@ describe('WorkflowsListPage', () => {
     });
 
     const deleteButtons = screen.getAllByText('Delete');
-    await user.click(deleteButtons[0]);
+    await userEvent.click(deleteButtons[0]);
 
     await waitFor(() => {
       expect(mockAlert).toHaveBeenCalledWith('Delete failed');
