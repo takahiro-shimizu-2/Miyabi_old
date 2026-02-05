@@ -1,0 +1,103 @@
+project:
+  name: "SNS Marketing Automation"
+  summary: >
+    SNSマーケティングを自動化するエージェントワークフローを構築。
+    コンテンツ生成、投稿スケジューリング、分析、エンゲージメント管理を自律的に実行。
+  stakeholders:
+    - Marketing Lead
+    - Content Creator
+    - Analytics Team
+  priority: high
+  repository: "miyabi/society-marketing"
+
+intent:
+  objective: >
+    SNSプラットフォーム（X/Twitter, Instagram, Threads, LinkedIn等）での
+    マーケティング活動を自動化し、コンテンツ企画から投稿、分析までを
+    エージェント社会が自律的に実行するシステムを構築する。
+
+  constraints:
+    - 各プラットフォームのAPI制限を遵守
+    - ブランドガイドラインに沿ったコンテンツのみ生成
+    - 不適切なコンテンツは人間承認を必須
+    - 1日の投稿数を制限（スパム回避）
+
+  success_criteria:
+    - コンテンツ投稿の自動化率 ≥ 80%
+    - エンゲージメント分析レポートを自動生成
+    - トレンド情報をリアルタイム収集
+    - A/Bテスト結果を自動反映
+
+outputs:
+  templates:
+    - world
+    - entities
+    - relations
+    - workflows
+    - agents
+    - skills
+    - universal
+    - labels
+    - step_back
+    - agent_execution
+    - workflows
+
+variables:
+  project:
+    domain: "social_media_marketing"
+    target_user: "Marketing Team"
+    metrics:
+      - name: "Engagement Rate"
+        target: "↑ 20%"
+      - name: "Content Output"
+        target: "≥ 10 posts/day"
+      - name: "Response Time"
+        target: "≤ 1 hour"
+
+  agents:
+    focus_area:
+      - "content_creation"
+      - "scheduling"
+      - "analytics"
+      - "community_management"
+      - "trend_monitoring"
+
+  workflows:
+    platforms:
+      - "twitter"
+      - "instagram"
+      - "threads"
+      - "linkedin"
+      - "bluesky"
+
+  entities:
+    social_media:
+      - name: "Post"
+        attributes: ["content", "media", "scheduled_at", "platform", "status"]
+      - name: "Campaign"
+        attributes: ["name", "start_date", "end_date", "budget", "goals"]
+      - name: "Analytics"
+        attributes: ["impressions", "engagements", "clicks", "conversions"]
+      - name: "Trend"
+        attributes: ["keyword", "volume", "sentiment", "platform"]
+
+agents:
+  include:
+    - ContentCreatorAgent
+    - SchedulerAgent
+    - AnalyticsAgent
+    - CommunityManagerAgent
+    - TrendMonitorAgent
+    - CopywriterAgent
+    - DesignerAgent
+    - ApprovalAgent
+  exclude:
+    - DeploymentAgent
+    - DatabaseMigrationAgent
+
+notes:
+  - "各プラットフォームのAPIレート制限を監視"
+  - "機密情報（APIキー）は安全に管理"
+  - "人間承認なしの公開はデフォルトで無効化"
+  - "炎上検知機能を搭載"
+  - "多言語対応（日本語・英語優先）"
