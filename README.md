@@ -59,7 +59,7 @@ npm install -g miyabi-mcp-bundle
 
 - 📖 [CLI ドキュメント](./packages/cli/README.md)
 - 🔧 [MCP Bundle ドキュメント](./packages/mcp-bundle/README.md)
-- 💬 [Discord コミュニティ](https://discord.gg/Urx8547abS)
+- 💬 [Discord コミュニティ](https://discord.gg/ZpY9sxfYNm)
 - 🐛 [Issue 報告](https://github.com/ShunsukeHayashi/Miyabi/issues)
 
 ---
