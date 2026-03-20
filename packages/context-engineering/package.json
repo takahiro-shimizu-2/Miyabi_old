@@ -42,7 +42,7 @@
     "directory": "packages/context-engineering"
   },
   "dependencies": {
-    "axios": "^1.6.0"
+    "axios": "^1.13.6"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
