@@ -37,27 +37,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@miyabi'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Build Agent SDK
         run: |
           cd packages/miyabi-agent-sdk
-          pnpm run build
+          npm run build
 
       - name: Run type check
         run: |
           cd packages/miyabi-agent-sdk
-          pnpm run typecheck
+          npm run typecheck
 
       - name: Set package version
         if: github.event_name == 'workflow_dispatch' && github.event.inputs.version != ''
@@ -111,23 +106,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@miyabi'
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Build all packages
-        run: pnpm -r run build
+        run: npm run build
 
       - name: Type check all packages
-        run: pnpm -r run typecheck
+        run: npm run typecheck
 
       - name: Publish all packages
         run: |

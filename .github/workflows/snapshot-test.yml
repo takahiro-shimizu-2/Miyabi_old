@@ -21,24 +21,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Run snapshot tests
         id: snapshot_test
         run: |
-          pnpm run test -- --run --reporter=verbose tests/ReviewAgent.test.ts
+          npm run test -- --run --reporter=verbose tests/ReviewAgent.test.ts
         continue-on-error: true
 
       - name: Check for snapshot changes
@@ -69,7 +64,6 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const fs = require('fs');
             const { execSync } = require('child_process');
 
             const diff = execSync('git diff tests/**/__snapshots__', { encoding: 'utf8' });
@@ -90,12 +84,12 @@ jobs:
             ### Update Snapshots
             To update snapshots locally:
             \`\`\`bash
-            pnpm run test -- --update
+            npm run test -- --update
             \`\`\`
 
             ### Next Steps:
 
-            1. **If changes are expected**: Update snapshots with \`pnpm run test -- -u\`
+            1. **If changes are expected**: Update snapshots with \`npm run test -- -u\`
             2. **If changes are unexpected**: Investigate why output changed
             3. **If unsure**: Ask for review from maintainers
 
@@ -113,7 +107,7 @@ jobs:
       - name: Fail if snapshots changed without update
         if: steps.snapshot_diff.outputs.status == 'has-changes'
         run: |
-          echo "::error::Snapshot changes detected but not committed. Run 'pnpm run test -- -u' to update snapshots."
+          echo "::error::Snapshot changes detected but not committed. Run 'npm run test -- -u' to update snapshots."
           exit 1
 
       - name: Report test results
@@ -145,19 +139,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps chromium
@@ -165,7 +154,7 @@ jobs:
       - name: Run Playwright visual tests
         id: playwright
         run: |
-          pnpm run test:e2e -- --project=chromium
+          npm run test:e2e -- --project=chromium
         continue-on-error: true
 
       - name: Upload Playwright screenshots

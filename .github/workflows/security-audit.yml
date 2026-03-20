@@ -43,19 +43,14 @@ jobs:
         with:
           fetch-depth: 0  # 完全な履歴を取得
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Run TypeScript type check
         run: npm run typecheck
@@ -65,11 +60,11 @@ jobs:
       # Dependency Vulnerability Scan
       # ============================================================================
 
-      - name: Run pnpm audit
+      - name: Run npm audit
         id: npm-audit
         run: |
-          pnpm audit --json > audit-report.json || true
-          pnpm audit
+          npm audit --json > audit-report.json || true
+          npm audit
         continue-on-error: true
 
       - name: Parse audit results
@@ -252,19 +247,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 9
-
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-          cache: 'pnpm'
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: npm ci
 
       - name: Check licenses
         run: |
