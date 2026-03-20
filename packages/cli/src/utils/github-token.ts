@@ -22,7 +22,7 @@ export async function getGitHubToken(): Promise<string> {
   const ghResult = execCommandSafe('gh auth token', { silent: true });
   if (ghResult.success) {
     const token = ghResult.output;
-    if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
+    if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_') || token.startsWith('gho_'))) {
       return token;
     }
   }
@@ -30,7 +30,7 @@ export async function getGitHubToken(): Promise<string> {
   // Priority 2: Check environment variable (for CI/CD)
   const envToken = process.env.GITHUB_TOKEN;
   if (envToken) {
-    if (envToken.startsWith('ghp_') || envToken.startsWith('github_pat_')) {
+    if (envToken.startsWith('ghp_') || envToken.startsWith('github_pat_') || envToken.startsWith('gho_')) {
       return envToken;
     } else {
       console.warn('⚠️  GITHUB_TOKEN environment variable found but format looks invalid');
@@ -75,14 +75,14 @@ export function getGitHubTokenSync(): string {
   const ghResult = execCommandSafe('gh auth token', { silent: true });
   if (ghResult.success) {
     const token = ghResult.output;
-    if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_'))) {
+    if (token && (token.startsWith('ghp_') || token.startsWith('github_pat_') || token.startsWith('gho_'))) {
       return token;
     }
   }
 
   // Priority 2: Check environment variable
   const envToken = process.env.GITHUB_TOKEN;
-  if (envToken && (envToken.startsWith('ghp_') || envToken.startsWith('github_pat_'))) {
+  if (envToken && (envToken.startsWith('ghp_') || envToken.startsWith('github_pat_') || envToken.startsWith('gho_'))) {
     return envToken;
   }
 
@@ -95,7 +95,7 @@ export function getGitHubTokenSync(): string {
         const [key, value] = line.split('=');
         if (key && key.trim() === 'GITHUB_TOKEN' && value) {
           const token = value.trim().replace(/^["']|["']$/g, '');
-          if (token.startsWith('ghp_') || token.startsWith('github_pat_')) {
+          if (token.startsWith('ghp_') || token.startsWith('github_pat_') || token.startsWith('gho_')) {
             return token;
           }
         }
@@ -129,5 +129,5 @@ export function isGhCliAuthenticated(): boolean {
  * @returns true if token format looks valid
  */
 export function isValidTokenFormat(token: string): boolean {
-  return token.startsWith('ghp_') || token.startsWith('github_pat_');
+  return token.startsWith('ghp_') || token.startsWith('github_pat_') || token.startsWith('gho_');
 }

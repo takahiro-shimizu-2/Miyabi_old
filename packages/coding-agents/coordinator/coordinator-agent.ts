@@ -641,9 +641,8 @@ export class CoordinatorAgent extends BaseAgent {
     this.log('🚀 Starting Task Tool parallel execution');
     this.log(`   Using Task Tool executor for ${tasks.length} tasks`);
 
-    // Dynamically import TaskToolExecutor to avoid package boundary issues
-    // @ts-ignore - Dynamic import across package boundary, works at runtime
-    const { TaskToolExecutor } = await import('../../scripts/operations/task-tool-executor');
+    // Dynamically import TaskToolExecutor
+    const { TaskToolExecutor } = await import('./task-tool-executor');
 
     // Create Task Tool executor
     const executor = new TaskToolExecutor({

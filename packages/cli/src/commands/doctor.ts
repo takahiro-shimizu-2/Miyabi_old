@@ -229,20 +229,21 @@ async function checkGitHubToken(): Promise<HealthCheck> {
     const token = await getGitHubTokenSafe();
     if (token) {
       // Validate token format
-      if (token.startsWith('ghp_') || token.startsWith('github_pat_')) {
+      // Valid prefixes: ghp_ (PAT classic), github_pat_ (fine-grained PAT), gho_ (OAuth from gh CLI)
+      if (token.startsWith('ghp_') || token.startsWith('github_pat_') || token.startsWith('gho_')) {
         return {
           name: 'GITHUB_TOKEN',
           status: 'pass',
           message: 'Valid token format',
-          details: 'GitHub Personal Access Token is set and has valid format',
+          details: 'GitHub token is set and has valid format',
         };
       } else {
         return {
           name: 'GITHUB_TOKEN',
           status: 'warn',
           message: 'Unusual token format',
-          suggestion: 'Verify your token is a valid GitHub Personal Access Token',
-          details: 'Token does not match expected format (ghp_* or github_pat_*)',
+          suggestion: 'Verify your token is a valid GitHub token',
+          details: 'Token does not match expected format (ghp_*, github_pat_*, or gho_*)',
         };
       }
     } else {

@@ -9,3 +9,5 @@ updates:
     labels:
       - "dependencies"
       - "🔄 dependencies"
+    ignore:
+      - dependency-name: "@miyabi/*"
