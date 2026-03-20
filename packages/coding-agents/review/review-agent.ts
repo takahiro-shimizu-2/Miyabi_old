@@ -212,8 +212,18 @@ export class ReviewAgent extends BaseAgent {
     const issues: QualityIssue[] = [];
 
     try {
+      // Sanitize file paths to prevent command injection
+      const safeFiles = files
+        .filter(f => /^[a-zA-Z0-9_./@-][a-zA-Z0-9_./@\s-]*$/.test(f))
+        .map(f => `'${f.replace(/'/g, "'\\''")}'`);
+
+      if (safeFiles.length === 0) {
+        this.log('⚠️  No valid file paths for ESLint');
+        return issues;
+      }
+
       const result = await this.executeCommand(
-        'npx eslint --format json ' + files.map(f => `"${f}"`).join(' '),
+        'npx eslint --format json ' + safeFiles.join(' '),
         { timeout: 60000 }
       );
 

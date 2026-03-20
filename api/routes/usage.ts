@@ -26,14 +26,25 @@ router.get(
       const userId = req.user!.id;
       const { plugin_id, period } = req.query;
 
-      if (!plugin_id) {
+      if (!plugin_id || typeof plugin_id !== 'string') {
         return res.status(400).json({
           error: 'bad_request',
           message: 'plugin_id query parameter is required'
         });
       }
 
-      const targetPeriod = (period as string) || new Date().toISOString().slice(0, 7);
+      // Validate plugin_id format (alphanumeric, hyphens, underscores only)
+      if (!/^[a-zA-Z0-9_-]+$/.test(plugin_id)) {
+        return res.status(400).json({
+          error: 'bad_request',
+          message: 'Invalid plugin_id format'
+        });
+      }
+
+      // Validate period format (YYYY-MM)
+      const targetPeriod = (typeof period === 'string' && /^\d{4}-\d{2}$/.test(period))
+        ? period
+        : new Date().toISOString().slice(0, 7);
 
       // Get usage stats
       const usage = await usageTracker.getMonthlyUsage(
@@ -116,10 +127,18 @@ router.post(
       const userId = req.user!.id;
       const { plugin_id, event_type, event_data } = req.body;
 
-      if (!plugin_id || !event_type) {
+      if (!plugin_id || typeof plugin_id !== 'string' || !event_type || typeof event_type !== 'string') {
         return res.status(400).json({
           error: 'bad_request',
           message: 'plugin_id and event_type are required'
+        });
+      }
+
+      // Validate plugin_id format
+      if (!/^[a-zA-Z0-9_-]+$/.test(plugin_id)) {
+        return res.status(400).json({
+          error: 'bad_request',
+          message: 'Invalid plugin_id format'
         });
       }
 
@@ -200,14 +219,25 @@ router.get(
       const userId = req.user!.id;
       const { plugin_id, month } = req.query;
 
-      if (!plugin_id) {
+      if (!plugin_id || typeof plugin_id !== 'string') {
         return res.status(400).json({
           error: 'bad_request',
           message: 'plugin_id query parameter is required'
         });
       }
 
-      const targetMonth = (month as string) || new Date().toISOString().slice(0, 7);
+      // Validate plugin_id format
+      if (!/^[a-zA-Z0-9_-]+$/.test(plugin_id)) {
+        return res.status(400).json({
+          error: 'bad_request',
+          message: 'Invalid plugin_id format'
+        });
+      }
+
+      // Validate month format (YYYY-MM)
+      const targetMonth = (typeof month === 'string' && /^\d{4}-\d{2}$/.test(month))
+        ? month
+        : new Date().toISOString().slice(0, 7);
 
       const report = await usageTracker.generateUsageReport(
         userId,

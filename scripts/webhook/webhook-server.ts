@@ -27,24 +27,43 @@ interface SessionState {
 const sessionStates = new Map<string, SessionState>();
 
 /**
+ * Sanitize user input for safe logging (prevent log injection)
+ */
+function sanitizeForLog(value: unknown): string {
+  const str = String(value ?? '');
+  // Remove newlines, carriage returns, and ANSI escape sequences
+  return str
+    .replace(/[\r\n]/g, ' ')
+    .replace(/\x1b\[[0-9;]*[a-zA-Z]/g, '')
+    .slice(0, 200);
+}
+
+/**
  * POST /api/session/status
  * Receive session status update from Water Spider
  */
-app.post('/api/session/status', (req: Request, res: Response) => {
+app.post('/api/session/status', (req: Request, res: Response): void => {
   const { timestamp, sessions } = req.body;
 
-  console.log(`📥 [${timestamp}] Received status update for ${sessions.length} sessions`);
+  if (!Array.isArray(sessions)) {
+    res.status(400).json({ error: 'sessions must be an array' });
+    return;
+  }
+
+  console.log(`📥 [${sanitizeForLog(timestamp)}] Received status update for ${sessions.length} sessions`);
 
   // Update session states
   sessions.forEach((session: any) => {
-    const existing = sessionStates.get(session.sessionId);
-    sessionStates.set(session.sessionId, {
+    const sessionId = sanitizeForLog(session.sessionId);
+    const existing = sessionStates.get(sessionId);
+    sessionStates.set(sessionId, {
       ...session,
+      sessionId,
       continueCount: existing?.continueCount || 0,
       lastContinue: existing?.lastContinue,
     });
 
-    console.log(`   - ${session.sessionId}: ${session.status} (idle: ${session.idleTime}ms)`);
+    console.log(`   - ${sessionId}: ${sanitizeForLog(session.status)} (idle: ${Number(session.idleTime) || 0}ms)`);
   });
 
   res.json({ status: 'ok', received: sessions.length });
@@ -55,10 +74,10 @@ app.post('/api/session/status', (req: Request, res: Response) => {
  * Notify that continue signal was sent
  */
 app.post('/api/session/:id/continue', (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = sanitizeForLog(req.params.id);
   const { timestamp } = req.body;
 
-  console.log(`📤 [${timestamp}] Continue signal sent to ${id}`);
+  console.log(`📤 [${sanitizeForLog(timestamp)}] Continue signal sent to ${id}`);
 
   const session = sessionStates.get(id);
   if (session) {
@@ -77,7 +96,7 @@ app.post('/api/session/:id/continue', (req: Request, res: Response) => {
  * Get recommendation for session (should we continue?)
  */
 app.get('/api/session/:id/recommendation', (req: Request, res: Response) => {
-  const { id } = req.params;
+  const id = String(req.params.id);
 
   const session = sessionStates.get(id);
 

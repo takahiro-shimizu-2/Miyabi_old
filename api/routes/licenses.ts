@@ -19,10 +19,18 @@ router.post('/verify', verifyLimiter, async (req, res) => {
   try {
     const { license_key } = req.body;
 
-    if (!license_key) {
+    if (!license_key || typeof license_key !== 'string') {
       return res.status(400).json({
         error: 'bad_request',
         message: 'license_key is required'
+      });
+    }
+
+    // Validate license key format (alphanumeric, hyphens only, max 256 chars)
+    if (!/^[a-zA-Z0-9_-]+$/.test(license_key) || license_key.length > 256) {
+      return res.status(400).json({
+        error: 'bad_request',
+        message: 'Invalid license_key format'
       });
     }
 

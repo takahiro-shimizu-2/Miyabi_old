@@ -7,6 +7,7 @@ import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { userService } from '../services/user-service';
 import { AuthRequest, requireAuth } from '../middleware/auth';
+import { apiLimiter } from '../middleware/rate-limit';
 import { LoginCredentials, AuthResponse } from '../lib/types';
 
 const router = Router();
@@ -23,7 +24,7 @@ if (!JWT_SECRET) {
  * POST /v1/auth/login
  * Login with username and password
  */
-router.post('/login', async (req: Request, res: Response): Promise<void> => {
+router.post('/login', apiLimiter, async (req: Request, res: Response): Promise<void> => {
   try {
     const { name, password, rememberMe } = req.body as LoginCredentials;
 
@@ -54,7 +55,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
         role: user.role,
       },
       JWT_SECRET,
-      { expiresIn: ACCESS_TOKEN_EXPIRY }
+      { algorithm: 'HS256', expiresIn: ACCESS_TOKEN_EXPIRY }
     );
 
     // Generate refresh token only if "rememberMe" is true (30 days)
@@ -66,7 +67,7 @@ router.post('/login', async (req: Request, res: Response): Promise<void> => {
           type: 'refresh',
         },
         JWT_SECRET,
-        { expiresIn: REFRESH_TOKEN_EXPIRY }
+        { algorithm: 'HS256', expiresIn: REFRESH_TOKEN_EXPIRY }
       );
     }
 
@@ -109,10 +110,10 @@ router.post('/refresh', async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Verify refresh token
+    // Verify refresh token with algorithm pinning
     let decoded: any;
     try {
-      decoded = jwt.verify(refreshToken, JWT_SECRET);
+      decoded = jwt.verify(refreshToken, JWT_SECRET, { algorithms: ['HS256'] });
     } catch (error) {
       res.status(401).json({
         error: 'invalid_token',
@@ -121,8 +122,8 @@ router.post('/refresh', async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    // Verify token type
-    if (decoded.type !== 'refresh') {
+    // Verify token type and payload integrity
+    if (decoded.type !== 'refresh' || !decoded.sub || typeof decoded.sub !== 'string') {
       res.status(401).json({
         error: 'invalid_token',
         message: 'Invalid token type',
@@ -148,7 +149,7 @@ router.post('/refresh', async (req: Request, res: Response): Promise<void> => {
         role: user.role,
       },
       JWT_SECRET,
-      { expiresIn: ACCESS_TOKEN_EXPIRY }
+      { algorithm: 'HS256', expiresIn: ACCESS_TOKEN_EXPIRY }
     );
 
     // Build response

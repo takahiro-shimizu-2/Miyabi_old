@@ -38,7 +38,15 @@ export function requireAuth(
   const token = authHeader.substring(7);
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as any;
+    const decoded = jwt.verify(token, JWT_SECRET, { algorithms: ['HS256'] }) as any;
+
+    if (!decoded.sub || typeof decoded.sub !== 'string') {
+      res.status(401).json({
+        error: 'unauthorized',
+        message: 'Invalid token payload',
+      });
+      return;
+    }
 
     req.user = {
       id: decoded.sub,
@@ -92,13 +100,15 @@ export function optionalAuth(
   const token = authHeader.substring(7);
 
   try {
-    const decoded = jwt.verify(token, JWT_SECRET) as any;
+    const decoded = jwt.verify(token, JWT_SECRET, { algorithms: ['HS256'] }) as any;
 
-    req.user = {
-      id: decoded.sub,
-      email: decoded.email,
-      role: decoded.role || 'user'
-    };
+    if (decoded.sub && typeof decoded.sub === 'string') {
+      req.user = {
+        id: decoded.sub,
+        email: decoded.email,
+        role: decoded.role || 'user'
+      };
+    }
   } catch (error) {
     // Invalid token, but don't fail - just continue without user
   }
@@ -122,6 +132,7 @@ export function generateToken(user: {
     },
     JWT_SECRET,
     {
+      algorithm: 'HS256',
       expiresIn: '30m' // 30 minutes
     }
   );
@@ -134,6 +145,6 @@ export function generateRefreshToken(userId: string): string {
   return jwt.sign(
     { sub: userId, type: 'refresh' },
     JWT_SECRET,
-    { expiresIn: '30d' }
+    { algorithm: 'HS256', expiresIn: '30d' }
   );
 }
