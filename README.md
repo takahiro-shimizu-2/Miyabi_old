@@ -39,7 +39,7 @@ Miyabi orchestrates 7 specialized coding agents that autonomously analyze, imple
 |---------|--------|--------|---------|-----------|
 | **Issue → PR automation** | Built-in | Manual setup | Manual setup | Manual setup |
 | **GitHub-native (Issues as task queue)** | 53 labels + 24 workflows | No | No | No |
-| **MCP integration (172+ tools)** | Built-in | No | No | No |
+| **MCP tools (172+ bundled)** | Built-in bundle | Via adapter | Via extension | Via adapter |
 | **Agent Skill Bus (110+ skills)** | Built-in | No | No | No |
 | **Code intelligence (GitNexus)** | Built-in | No | No | No |
 | **Quality gate (auto-review + retry)** | Score 80+ or escalate | Manual | Manual | Manual |
