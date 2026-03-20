@@ -3,7 +3,8 @@
  * Provides Windows/macOS/Linux compatibility
  */
 
-import { execSync, ExecSyncOptions, SpawnSyncOptions } from 'child_process';
+import type { ExecSyncOptions, SpawnSyncOptions } from 'child_process';
+import { execSync } from 'child_process';
 import { platform } from 'os';
 
 /**
@@ -26,9 +27,9 @@ export const isLinux = (): boolean => platform() === 'linux';
  */
 export const getPlatform = (): 'windows' | 'macos' | 'linux' | 'unknown' => {
   const p = platform();
-  if (p === 'win32') return 'windows';
-  if (p === 'darwin') return 'macos';
-  if (p === 'linux') return 'linux';
+  if (p === 'win32') {return 'windows';}
+  if (p === 'darwin') {return 'macos';}
+  if (p === 'linux') {return 'linux';}
   return 'unknown';
 };
 

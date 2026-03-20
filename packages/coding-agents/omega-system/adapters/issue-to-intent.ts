@@ -101,7 +101,7 @@ function createGoal(
 function determinePriority(labels: string[]): GoalPriority {
   for (const label of labels) {
     const priority = PRIORITY_MAP[label];
-    if (priority) return priority;
+    if (priority) {return priority;}
   }
   return 'medium';
 }

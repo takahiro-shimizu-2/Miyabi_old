@@ -7,7 +7,7 @@
 
 import chalk from 'chalk';
 import ora from 'ora';
-import { Command } from 'commander';
+import type { Command } from 'commander';
 import type { AgentType } from './agent';
 import { runAgent } from './agent';
 import { Octokit } from '@octokit/rest';

@@ -31,7 +31,7 @@ export interface ApprovalResult {
 
 export interface HumanInTheLoopConfig {
   approvalLevel: ApprovalLevel;
-  autoApproveRisks: ('low' | 'medium')[];
+  autoApproveRisks: Array<'low' | 'medium'>;
   notifyOnAutoApprove: boolean;
   timeoutSeconds: number;
 }
@@ -157,10 +157,10 @@ export class HumanInTheLoop {
         name: 'decision',
         message: 'What would you like to do?',
         choices: [
-          { name: chalk.green('✓ Approve') + ' - Proceed with this action', value: 'approve' },
-          { name: chalk.red('✗ Reject') + ' - Skip this action', value: 'reject' },
-          { name: chalk.yellow('ℹ More Info') + ' - Show detailed information', value: 'info' },
-          { name: chalk.gray('⏸ Pause') + ' - Pause execution', value: 'pause' },
+          { name: `${chalk.green('✓ Approve')  } - Proceed with this action`, value: 'approve' },
+          { name: `${chalk.red('✗ Reject')  } - Skip this action`, value: 'reject' },
+          { name: `${chalk.yellow('ℹ More Info')  } - Show detailed information`, value: 'info' },
+          { name: `${chalk.gray('⏸ Pause')  } - Pause execution`, value: 'pause' },
         ],
         default: gate.suggestedAction === 'approve' ? 'approve' : 'reject',
       },
@@ -334,7 +334,7 @@ export function withApproval(
     descriptor: TypedPropertyDescriptor<T>
   ): TypedPropertyDescriptor<T> {
     const originalMethod = descriptor.value;
-    if (!originalMethod) return descriptor;
+    if (!originalMethod) {return descriptor;}
 
     descriptor.value = async function (this: unknown, ...args: unknown[]) {
       const approved = await requireApproval(action, description, risk);

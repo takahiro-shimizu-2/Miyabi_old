@@ -5,9 +5,9 @@
  */
 
 import { DynamicAgent } from './dynamic-agent';
-import { AgentConfig } from './types/index';
-import { AgentTemplate, AgentInstance } from './types/agent-template';
-import { HookManager } from './hooks/hook-manager';
+import type { AgentConfig } from './types/index';
+import type { AgentTemplate, AgentInstance } from './types/agent-template';
+import type { HookManager } from './hooks/hook-manager';
 import { logger } from './ui/index';
 
 export class AgentFactory {

@@ -4,7 +4,7 @@
  */
 
 import chalk from "chalk";
-import { Command } from "commander";
+import type { Command } from "commander";
 import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
@@ -301,7 +301,7 @@ async function cycleGni(options: { reindex?: boolean }): Promise<void> {
       timeout: 15000,
       stdio: ["pipe", "pipe", "pipe"],
     }).trim();
-    console.log(chalk.white("  Status: " + gniStatus));
+    console.log(chalk.white(`  Status: ${  gniStatus}`));
 
     if (options.reindex || gniStatus.includes("stale")) {
       console.log(chalk.yellow("\n  Reindexing..."));
@@ -310,7 +310,7 @@ async function cycleGni(options: { reindex?: boolean }): Promise<void> {
         timeout: 60000,
         stdio: ["pipe", "pipe", "pipe"],
       }).trim();
-      console.log(chalk.green("  " + result));
+      console.log(chalk.green(`  ${  result}`));
     }
   } catch (e: any) {
     console.log(chalk.gray("  GitNexus not available"));

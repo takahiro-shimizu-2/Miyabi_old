@@ -234,7 +234,7 @@ export function clearHumanApproval(state: DashboardState): void {
  * Calculate overall progress from agent statuses
  */
 export function calculateOverallProgress(state: DashboardState): number {
-  if (state.agents.length === 0) return 0;
+  if (state.agents.length === 0) {return 0;}
 
   let totalProgress = 0;
   for (const agent of state.agents) {

@@ -2,8 +2,8 @@
  * NotificationHook - Sends notifications on agent completion/failure
  */
 
-import { PostHook, ErrorHook, HookContext } from '../../types/hooks';
-import { AgentResult } from '../../types/index';
+import type { PostHook, ErrorHook, HookContext } from '../../types/hooks';
+import type { AgentResult } from '../../types/index';
 import { logger } from '../../ui/index';
 
 export interface NotificationConfig {
@@ -93,7 +93,7 @@ ${result.metrics?.qualityScore ? `**Quality Score**: ${result.metrics.qualitySco
    * Send notifications to configured channels
    */
   protected async sendNotifications(message: string): Promise<void> {
-    const promises: Promise<void>[] = [];
+    const promises: Array<Promise<void>> = [];
 
     if (this.config.slackWebhookUrl) {
       promises.push(this.sendSlackNotification(message));
@@ -212,7 +212,7 @@ export class ErrorNotificationHook implements ErrorHook {
    * Send notifications to configured channels
    */
   protected async sendNotifications(message: string): Promise<void> {
-    const promises: Promise<void>[] = [];
+    const promises: Array<Promise<void>> = [];
 
     if (this.config.slackWebhookUrl) {
       promises.push(this.sendSlackNotification(message));

@@ -15,7 +15,7 @@
  */
 
 import { BaseAgent } from '../base-agent';
-import { AgentConfig, AgentResult, Task } from '../types/index';
+import type { AgentConfig, AgentResult, Task } from '../types/index';
 import { SessionManager } from './session-manager';
 import { WebhookClient } from './webhook-client';
 
@@ -109,7 +109,7 @@ export class WaterSpiderAgent extends BaseAgent {
     this.isRunning = true;
 
     const monitor = async () => {
-      if (!this.isRunning) return;
+      if (!this.isRunning) {return;}
 
       try {
         // Check all sessions

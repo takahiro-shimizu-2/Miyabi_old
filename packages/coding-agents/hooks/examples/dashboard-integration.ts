@@ -5,14 +5,14 @@
  */
 
 import { BaseAgent } from '../../base-agent';
-import { Task, AgentResult, AgentConfig } from '../../types/index';
+import type { Task, AgentResult, AgentConfig } from '../../types/index';
 import {
   HookManager,
   DashboardWebhookHook,
   EnvironmentCheckHook,
   CleanupHook,
 } from '../index';
-import { HookContext } from '../../types/hooks';
+import type { HookContext } from '../../types/hooks';
 
 /**
  * Example Agent with Dashboard Integration

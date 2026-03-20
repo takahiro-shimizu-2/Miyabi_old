@@ -94,16 +94,16 @@ const DEFAULT_CONTEXT: ExecutionContext = {
  * Detect project type from config
  */
 function detectProjectType(config?: ExecutionContext['config']): string {
-  if (!config) return 'typescript';
+  if (!config) {return 'typescript';}
 
   const framework = config.framework?.toLowerCase();
   if (framework) {
-    if (framework.includes('next')) return 'nextjs';
-    if (framework.includes('react')) return 'react';
-    if (framework.includes('vue')) return 'vue';
-    if (framework.includes('angular')) return 'angular';
-    if (framework.includes('express')) return 'express';
-    if (framework.includes('nest')) return 'nestjs';
+    if (framework.includes('next')) {return 'nextjs';}
+    if (framework.includes('react')) {return 'react';}
+    if (framework.includes('vue')) {return 'vue';}
+    if (framework.includes('angular')) {return 'angular';}
+    if (framework.includes('express')) {return 'express';}
+    if (framework.includes('nest')) {return 'nestjs';}
   }
 
   return config.language || 'typescript';
@@ -115,7 +115,7 @@ function detectProjectType(config?: ExecutionContext['config']): string {
 function inferArchitecturePatterns(config?: ExecutionContext['config']): string[] {
   const patterns: string[] = ['modular'];
 
-  if (!config) return patterns;
+  if (!config) {return patterns;}
 
   if (config.framework) {
     patterns.push('framework-based');

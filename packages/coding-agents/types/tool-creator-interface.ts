@@ -4,7 +4,7 @@
  * Solves circular dependency between agent-template.ts and dynamic-tool-creator.ts
  */
 
-import { ToolRequirement } from './agent-analysis';
+import type { ToolRequirement } from './agent-analysis';
 
 /**
  * Tool Creator Interface (to avoid circular dependency)

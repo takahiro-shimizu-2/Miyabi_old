@@ -44,7 +44,7 @@ export async function getGitHubToken(): Promise<string> {
       const envContent = readFileSync(envFilePath, 'utf-8');
       for (const line of envContent.split('\n')) {
         const [key, value] = line.split('=');
-        if (key && key.trim() === 'GITHUB_TOKEN' && value) {
+        if (key?.trim() === 'GITHUB_TOKEN' && value) {
           const token = value.trim().replace(/^["']|["']$/g, ''); // Remove quotes
           if (token.startsWith('ghp_') || token.startsWith('github_pat_')) {
             return token;
@@ -93,7 +93,7 @@ export function getGitHubTokenSync(): string {
       const envContent = readFileSync(envFilePath, 'utf-8');
       for (const line of envContent.split('\n')) {
         const [key, value] = line.split('=');
-        if (key && key.trim() === 'GITHUB_TOKEN' && value) {
+        if (key?.trim() === 'GITHUB_TOKEN' && value) {
           const token = value.trim().replace(/^["']|["']$/g, '');
           if (token.startsWith('ghp_') || token.startsWith('github_pat_') || token.startsWith('gho_')) {
             return token;

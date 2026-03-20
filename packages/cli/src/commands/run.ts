@@ -8,7 +8,7 @@
  * One command. One voice. Maximum clarity.
  */
 
-import { Command } from 'commander';
+import type { Command } from 'commander';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
 import {
@@ -169,7 +169,7 @@ async function selectTaskInteractively(): Promise<{ taskType: TaskType; issue?: 
         message: 'Issue or PR number (optional):',
         default: '',
         validate: (input: string) => {
-          if (!input) return true;
+          if (!input) {return true;}
           const num = parseInt(input, 10);
           return !isNaN(num) && num > 0 ? true : 'Please enter a valid number';
         },

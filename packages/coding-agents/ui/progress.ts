@@ -6,7 +6,8 @@
  */
 
 import chalk from 'chalk';
-import ora, { Ora } from 'ora';
+import type { Ora } from 'ora';
+import ora from 'ora';
 import { theme } from './theme';
 
 export interface ProgressBarOptions {
@@ -73,7 +74,7 @@ export interface Step {
 export class MultiStepProgress {
   private steps: Step[];
 
-  constructor(steps: Omit<Step, 'status'>[]) {
+  constructor(steps: Array<Omit<Step, 'status'>>) {
     this.steps = steps.map(step => ({ ...step, status: 'pending' as const }));
   }
 
@@ -82,7 +83,7 @@ export class MultiStepProgress {
    */
   startStep(stepId: string): void {
     const step = this.steps.find(s => s.id === stepId);
-    if (!step) return;
+    if (!step) {return;}
 
     step.status = 'running';
   }
@@ -92,7 +93,7 @@ export class MultiStepProgress {
    */
   completeStep(stepId: string, duration?: number): void {
     const step = this.steps.find(s => s.id === stepId);
-    if (!step) return;
+    if (!step) {return;}
 
     step.status = 'success';
     if (duration !== undefined) {
@@ -105,7 +106,7 @@ export class MultiStepProgress {
    */
   failStep(stepId: string): void {
     const step = this.steps.find(s => s.id === stepId);
-    if (!step) return;
+    if (!step) {return;}
 
     step.status = 'error';
   }
@@ -115,7 +116,7 @@ export class MultiStepProgress {
    */
   skipStep(stepId: string): void {
     const step = this.steps.find(s => s.id === stepId);
-    if (!step) return;
+    if (!step) {return;}
 
     step.status = 'skipped';
   }
@@ -338,7 +339,7 @@ export class ParallelTaskProgress {
    */
   startTask(taskId: string): void {
     const task = this.tasks.get(taskId);
-    if (!task) return;
+    if (!task) {return;}
 
     task.status = 'running';
     task.startTime = Date.now();
@@ -349,7 +350,7 @@ export class ParallelTaskProgress {
    */
   updateProgress(taskId: string, progress: number): void {
     const task = this.tasks.get(taskId);
-    if (!task) return;
+    if (!task) {return;}
 
     task.progress = Math.min(100, Math.max(0, progress));
   }
@@ -359,7 +360,7 @@ export class ParallelTaskProgress {
    */
   completeTask(taskId: string): void {
     const task = this.tasks.get(taskId);
-    if (!task) return;
+    if (!task) {return;}
 
     task.status = 'success';
     task.progress = 100;
@@ -371,7 +372,7 @@ export class ParallelTaskProgress {
    */
   failTask(taskId: string): void {
     const task = this.tasks.get(taskId);
-    if (!task) return;
+    if (!task) {return;}
 
     task.status = 'error';
     task.endTime = Date.now();

@@ -5,7 +5,7 @@
  */
 
 import chalk from 'chalk';
-import { Command } from 'commander';
+import type { Command } from 'commander';
 import { githubOAuth } from '../auth/github-oauth';
 import {
   saveCredentials,

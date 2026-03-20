@@ -149,7 +149,7 @@ export class PerformanceMonitor {
    */
   endAgentTracking(agentType: string, taskId: string): AgentPerformanceMetrics | null {
     const key = this.findAgentKey(agentType, taskId);
-    if (!key) return null;
+    if (!key) {return null;}
 
     const metrics = this.agentMetrics.get(key)!;
     metrics.endTime = Date.now();
@@ -240,15 +240,15 @@ export class PerformanceMonitor {
    * Classify tool type for bottleneck categorization
    */
   private classifyToolType(toolName: string): PerformanceBottleneck['type'] {
-    if (toolName.includes('claude') || toolName.includes('api')) return 'api_call';
+    if (toolName.includes('claude') || toolName.includes('api')) {return 'api_call';}
     if (toolName.includes('file') || toolName.includes('write') || toolName.includes('read'))
-      return 'file_io';
+      {return 'file_io';}
     if (
       toolName.includes('github') ||
       toolName.includes('octokit') ||
       toolName.includes('fetch')
     )
-      return 'api_call';
+      {return 'api_call';}
     return 'tool_invocation';
   }
 
@@ -256,9 +256,9 @@ export class PerformanceMonitor {
    * Determine impact level based on duration
    */
   private determineImpact(durationMs: number): PerformanceBottleneck['impact'] {
-    if (durationMs > 30000) return 'critical'; // >30s
-    if (durationMs > 10000) return 'high'; // >10s
-    if (durationMs > 5000) return 'medium'; // >5s
+    if (durationMs > 30000) {return 'critical';} // >30s
+    if (durationMs > 10000) {return 'high';} // >10s
+    if (durationMs > 5000) {return 'medium';} // >5s
     return 'low';
   }
 

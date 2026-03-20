@@ -328,7 +328,7 @@ async function createDemoProject(): Promise<void> {
       message: 'Project name:',
       default: 'miyabi-demo',
       validate: (input) => {
-        if (!input) return 'Project name is required';
+        if (!input) {return 'Project name is required';}
         if (!/^[a-zA-Z0-9_-]+$/.test(input)) {
           return 'Only letters, numbers, hyphens, and underscores allowed';
         }

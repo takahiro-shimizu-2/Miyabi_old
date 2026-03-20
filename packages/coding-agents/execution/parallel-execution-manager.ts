@@ -229,7 +229,7 @@ export class ParallelExecutionManager {
    */
   private async executeTasks(tasks: ExecutionTask[]): Promise<void> {
     const queue = [...tasks];
-    const running: Promise<void>[] = [];
+    const running: Array<Promise<void>> = [];
 
     while (queue.length > 0 || running.length > 0) {
       // Start new tasks up to maxConcurrency
@@ -276,7 +276,7 @@ export class ParallelExecutionManager {
           convergenceThreshold: this.config.feedbackLoopConfig.convergenceThreshold,
           minIterationsBeforeConvergence: 3,
           autoRefinementEnabled: this.config.feedbackLoopConfig.autoRefinementEnabled,
-          logsDirectory: task.worktree.path + '/loops',
+          logsDirectory: `${task.worktree.path  }/loops`,
           autoSave: true,
           timeout: this.config.timeout,
           enableEscalation: false,
@@ -292,7 +292,7 @@ export class ParallelExecutionManager {
       while (iteration < maxIterations) {
         const loop = orchestrator.getLoop(task.loop.loopId);
 
-        if (!loop || loop.status !== 'running') {
+        if (loop?.status !== 'running') {
           break;
         }
 
@@ -398,9 +398,9 @@ export class ParallelExecutionManager {
     for (const task of allTasks) {
       totalIterations += task.loop.iterations?.length || 0;
 
-      if (task.loop.status === 'converged') convergedLoops++;
-      if (task.loop.status === 'diverged') divergedLoops++;
-      if (task.loop.status === 'escalated') escalatedLoops++;
+      if (task.loop.status === 'converged') {convergedLoops++;}
+      if (task.loop.status === 'diverged') {divergedLoops++;}
+      if (task.loop.status === 'escalated') {escalatedLoops++;}
     }
 
     const averageIterations =

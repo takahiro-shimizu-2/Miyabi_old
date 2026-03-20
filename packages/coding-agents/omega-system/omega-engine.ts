@@ -13,12 +13,18 @@ import type { IntentSpace } from '../types/intent';
 import type { WorldSpace } from '../types/world';
 
 // Transform imports
-import { understanding, StrategicPlan, validatePlan } from './transformations/understanding';
-import { generation, TaskSet, validateTaskSet } from './transformations/generation';
-import { allocation, AgentAllocation, validateAllocation } from './transformations/allocation';
-import { execution, ResultSet, validateResultSet } from './transformations/execution';
-import { integration, Deliverable, validateDeliverable } from './transformations/integration';
-import { learning, Knowledge, validateKnowledge } from './transformations/learning';
+import type { StrategicPlan} from './transformations/understanding';
+import { understanding, validatePlan } from './transformations/understanding';
+import type { TaskSet} from './transformations/generation';
+import { generation, validateTaskSet } from './transformations/generation';
+import type { AgentAllocation} from './transformations/allocation';
+import { allocation, validateAllocation } from './transformations/allocation';
+import type { ResultSet} from './transformations/execution';
+import { execution, validateResultSet } from './transformations/execution';
+import type { Deliverable} from './transformations/integration';
+import { integration, validateDeliverable } from './transformations/integration';
+import type { Knowledge} from './transformations/learning';
+import { learning, validateKnowledge } from './transformations/learning';
 
 // ============================================================================
 // Engine Types

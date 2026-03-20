@@ -4,9 +4,9 @@
  * Supports PreHook, PostHook, and ErrorHook interfaces for complete lifecycle tracking
  */
 
-import { PreHook, PostHook, ErrorHook, HookContext } from '../../types/hooks';
-import { AgentResult } from '../../types/index';
-import {
+import type { PreHook, PostHook, ErrorHook, HookContext } from '../../types/hooks';
+import type { AgentResult } from '../../types/index';
+import type {
   DashboardEvent,
   DashboardWebhookResponse,
   AgentStartedEvent,

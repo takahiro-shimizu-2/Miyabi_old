@@ -156,7 +156,7 @@ export function codeBox(code: string, language?: string): string {
 export function commandBox(command: string, description?: string): string {
   let content = chalk.cyan.bold(command);
   if (description) {
-    content += '\n\n' + chalk.gray(description);
+    content += `\n\n${  chalk.gray(description)}`;
   }
 
   return createBox(content, {

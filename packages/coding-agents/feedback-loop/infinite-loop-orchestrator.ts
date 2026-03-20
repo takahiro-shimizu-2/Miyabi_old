@@ -15,8 +15,8 @@ import type {
   ActualMetrics,
   Escalation,
 } from '../types/index';
-import { GoalManager } from './goal-manager';
-import { ConsumptionValidator } from './consumption-validator';
+import type { GoalManager } from './goal-manager';
+import type { ConsumptionValidator } from './consumption-validator';
 import { Octokit } from '@octokit/rest';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -178,7 +178,7 @@ export class InfiniteLoopOrchestrator {
         console.error(`🌐 Retryable error: ${error.message}`);
 
         // Retry with exponential backoff
-        return await this.retryWithBackoff(
+        return this.retryWithBackoff(
           () => this.executeIterationInternal(loopId, sessionId, actualMetrics),
           maxRetries,
           sessionId
@@ -304,7 +304,7 @@ export class InfiniteLoopOrchestrator {
    */
   stopLoop(loopId: string): void {
     const loop = this.activeLoops.get(loopId);
-    if (loop && loop.status === 'running') {
+    if (loop?.status === 'running') {
       loop.status = 'max_iterations_reached';
       this.activeLoops.set(loopId, loop);
 

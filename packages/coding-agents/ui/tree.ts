@@ -63,9 +63,9 @@ function renderNode(
 
   // Icon
   if (showIcons && node.icon) {
-    line += node.icon + ' ';
+    line += `${node.icon  } `;
   } else if (showIcons && node.status) {
-    line += getStatusIcon(node.status) + ' ';
+    line += `${getStatusIcon(node.status)  } `;
   }
 
   // Label
@@ -79,7 +79,7 @@ function renderNode(
 
   // Meta
   if (node.meta) {
-    line += ' ' + chalk.gray(node.meta);
+    line += ` ${  chalk.gray(node.meta)}`;
   }
 
   lines.push(line);
@@ -236,12 +236,12 @@ function taskToTreeNode(task: TaskNode): TreeNode {
  */
 export interface AgentExecution {
   agent: string;
-  tasks: {
+  tasks: Array<{
     name: string;
     status: 'success' | 'error' | 'warning';
     duration: number;
     subtasks?: AgentExecution['tasks'];
-  }[];
+  }>;
 }
 
 export function renderAgentExecutionTree(executions: AgentExecution[]): string {

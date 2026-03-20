@@ -14,7 +14,8 @@
 
 import chalk from 'chalk';
 import boxen from 'boxen';
-import ora, { Ora } from 'ora';
+import type { Ora } from 'ora';
+import ora from 'ora';
 import gradient from 'gradient-string';
 import figlet from 'figlet';
 import logSymbols from 'log-symbols';

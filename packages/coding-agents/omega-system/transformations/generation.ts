@@ -171,11 +171,11 @@ function generateTasksFromObjective(
  * Determine task type from capabilities
  */
 function determineTaskType(capabilities: string[]): Task['type'] {
-  if (capabilities.includes('deployment')) return 'deployment';
-  if (capabilities.includes('test-generation')) return 'test';
-  if (capabilities.includes('documentation')) return 'docs';
-  if (capabilities.includes('code-generation')) return 'feature';
-  if (capabilities.includes('code-review')) return 'refactor';
+  if (capabilities.includes('deployment')) {return 'deployment';}
+  if (capabilities.includes('test-generation')) {return 'test';}
+  if (capabilities.includes('documentation')) {return 'docs';}
+  if (capabilities.includes('code-generation')) {return 'feature';}
+  if (capabilities.includes('code-review')) {return 'refactor';}
   return 'feature';
 }
 
@@ -183,9 +183,9 @@ function determineTaskType(capabilities: string[]): Task['type'] {
  * Determine best agent for capabilities
  */
 function determineAgent(capabilities: string[]): AgentType {
-  if (capabilities.includes('deployment')) return 'DeploymentAgent';
-  if (capabilities.includes('code-review')) return 'ReviewAgent';
-  if (capabilities.includes('code-generation')) return 'CodeGenAgent';
+  if (capabilities.includes('deployment')) {return 'DeploymentAgent';}
+  if (capabilities.includes('code-review')) {return 'ReviewAgent';}
+  if (capabilities.includes('code-generation')) {return 'CodeGenAgent';}
   return 'CodeGenAgent';
 }
 
@@ -439,7 +439,7 @@ export async function generation(
     byPriority[task.priority] = (byPriority[task.priority] || 0) + 1;
     totalDuration += (task.estimatedDuration || 0) * 60000;
     totalTokens += task.estimatedTokens;
-    if (task.dependencies.length === 0) parallelizable++;
+    if (task.dependencies.length === 0) {parallelizable++;}
   }
 
   const taskSet: TaskSet = {

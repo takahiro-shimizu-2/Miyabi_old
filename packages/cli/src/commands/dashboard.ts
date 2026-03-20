@@ -1,4 +1,4 @@
-import { Command } from 'commander';
+import type { Command } from 'commander';
 import chalk from 'chalk';
 import ora from 'ora';
 import open from 'open';
@@ -197,7 +197,7 @@ async function performRefresh(
         },
       }));
     } else {
-      if (spinner) spinner.succeed('Dashboard refreshed');
+      if (spinner) {spinner.succeed('Dashboard refreshed');}
 
       console.log(chalk.green('✅ ダッシュボードをリフレッシュしました'));
 
@@ -209,7 +209,7 @@ async function performRefresh(
         console.log(chalk.cyan(`📱 デバイス: ${total} 台 (${onlineDevices} online, ${idleDevices} idle)`));
       }
 
-      if (results.graph && results.graph.rateLimited) {
+      if (results.graph?.rateLimited) {
         console.log(chalk.yellow('⚠️  GitHub API rate limit reached - using cached data'));
       }
 
@@ -233,7 +233,7 @@ async function performRefresh(
         },
       }));
     } else {
-      if (spinner) spinner.fail('Failed to refresh dashboard');
+      if (spinner) {spinner.fail('Failed to refresh dashboard');}
 
       console.error(chalk.red(`❌ ${errorMessage}`));
 

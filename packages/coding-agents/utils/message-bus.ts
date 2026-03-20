@@ -7,16 +7,17 @@
 
 import { v4 as uuidv4 } from 'uuid';
 import { EventEmitter } from 'events';
-import {
+import type {
   AgentMessage,
   MessageResponse,
   MessageType,
-  MessagePriority,
   MessageHandler,
-  MessageBusConfig,
+  MessageBusConfig} from '../types/communication';
+import {
+  MessagePriority,
   isAgentMessage,
 } from '../types/communication';
-import { AgentType } from '../types/index';
+import type { AgentType } from '../types/index';
 import { logger } from '../ui/index';
 
 // ============================================================================
@@ -204,7 +205,7 @@ export class MessageBus extends EventEmitter {
    */
   private async enqueueMessage<T>(message: AgentMessage<T>): Promise<void> {
     const queue = this.messageQueue.get(message.to);
-    if (!queue) return;
+    if (!queue) {return;}
 
     // Check queue size
     if (queue.length >= this.config.maxQueueSize) {
@@ -236,7 +237,7 @@ export class MessageBus extends EventEmitter {
     const queue = this.messageQueue.get(agentType);
     const handler = this.handlers.get(agentType);
 
-    if (!queue || !handler) return;
+    if (!queue || !handler) {return;}
 
     this.isProcessing.set(agentType, true);
 

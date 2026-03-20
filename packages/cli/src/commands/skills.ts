@@ -4,7 +4,7 @@
  */
 
 import chalk from "chalk";
-import { Command } from "commander";
+import type { Command } from "commander";
 import { execSync } from "child_process";
 import { readdirSync, statSync, existsSync } from "fs";
 import { join } from "path";
@@ -16,7 +16,7 @@ const SYNC_TARGETS = ["macbook", "mainmini", "macmini2", "windows"];
 const SYNC_SKILLS = ["miyabi-master", "openclaw-agents"];
 
 function getSkillDirs(): string[] {
-  if (!existsSync(SKILLS_DIR)) return [];
+  if (!existsSync(SKILLS_DIR)) {return [];}
   return readdirSync(SKILLS_DIR).filter((name) => {
     const fullPath = join(SKILLS_DIR, name);
     return statSync(fullPath).isDirectory();

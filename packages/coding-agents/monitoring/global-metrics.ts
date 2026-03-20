@@ -6,7 +6,7 @@
  * which runs as a separate process.
  */
 
-import { AgentType } from '../types/index';
+import type { AgentType } from '../types/index';
 
 interface AgentCompletionMetrics {
   taskId: string;

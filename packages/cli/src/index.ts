@@ -189,7 +189,7 @@ program
               message: 'プロジェクト名:',
               default: 'my-project',
               validate: (input) => {
-                if (!input) return 'プロジェクト名を入力してください';
+                if (!input) {return 'プロジェクト名を入力してください';}
                 if (!/^[a-zA-Z0-9_-]+$/.test(input)) {
                   return '英数字、ハイフン、アンダースコアのみ使用可能です';
                 }

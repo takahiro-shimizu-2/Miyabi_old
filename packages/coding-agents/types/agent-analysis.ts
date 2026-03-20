@@ -4,7 +4,7 @@
  * Types for intelligent agent analysis and dynamic tool creation
  */
 
-import { AgentTemplate } from './agent-template';
+import type { AgentTemplate } from './agent-template';
 
 /**
  * Task complexity analysis result

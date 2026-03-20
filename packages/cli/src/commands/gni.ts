@@ -2,7 +2,7 @@
  * gni — GitNexus code intelligence (14 subcommands)
  * Integrated from miyabi-hub
  */
-import { Command } from "commander";
+import type { Command } from "commander";
 import chalk from "chalk";
 import { runGni, isGniAvailable } from "../utils/gitnexus.js";
 
@@ -15,7 +15,7 @@ function ensureGni(): boolean {
 }
 
 function gniPassthrough(subcommand: string, args: string[]): void {
-  if (!ensureGni()) process.exit(1);
+  if (!ensureGni()) {process.exit(1);}
   const result = runGni([subcommand, ...args]);
   if (result.success) {
     console.log(result.output);

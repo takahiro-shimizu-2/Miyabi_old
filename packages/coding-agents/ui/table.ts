@@ -20,7 +20,7 @@ export interface TableColumn {
 export interface TableOptions {
   title?: string;
   columns: TableColumn[];
-  data: Record<string, any>[];
+  data: Array<Record<string, any>>;
   borderColor?: string;
   headerColor?: string;
   compact?: boolean;
@@ -49,7 +49,7 @@ export function createTable(options: TableOptions): string {
     style: {
       head: [],
       border: [],
-      compact: compact,
+      compact,
     },
     chars: compact ? {
       'top': '─',
@@ -101,7 +101,7 @@ export function createTable(options: TableOptions): string {
   // Add title if provided
   let output = '';
   if (title) {
-    output += '\n' + chalk.hex(borderColor).bold(title) + '\n';
+    output += `\n${  chalk.hex(borderColor).bold(title)  }\n`;
   }
   output += table.toString();
 

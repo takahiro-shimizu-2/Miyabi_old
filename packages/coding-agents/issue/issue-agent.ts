@@ -14,7 +14,7 @@
  */
 
 import { BaseAgent } from '../base-agent';
-import {
+import type {
   AgentResult,
   AgentConfig,
   Task,
@@ -23,7 +23,7 @@ import {
   ImpactLevel,
   AgentType,
 } from '../types/index';
-import { Octokit } from '@octokit/rest';
+import type { Octokit } from '@octokit/rest';
 import { withRetry } from '@miyabi/shared-utils/retry';
 import { IssueAnalyzer } from '../utils/issue-analyzer';
 import { GitRepository } from '../utils/git-repository';
@@ -147,15 +147,11 @@ export class IssueAgent extends BaseAgent {
       // Use LRU cache to avoid repeated API calls for same issue
       const cacheKey = `issue:${this.owner}/${this.repo}/${issueNumber}`;
 
-      const response = await withGitHubCache(cacheKey, async () => {
-        return await withRetry(async () => {
-          return await this.octokit.issues.get({
+      const response = await withGitHubCache(cacheKey, async () => await withRetry(async () => this.octokit.issues.get({
             owner: this.owner,
             repo: this.repo,
             issue_number: issueNumber,
-          });
-        });
-      });
+          })));
 
       await this.logToolInvocation(
         'github_api_get_issue',
@@ -238,7 +234,7 @@ export class IssueAgent extends BaseAgent {
    * Assign team members to Issue (with automatic retry on transient failures)
    */
   private async assignTeamMembers(issueNumber: number, assignees: string[]): Promise<void> {
-    if (assignees.length === 0) return;
+    if (assignees.length === 0) {return;}
 
     this.log(`👥 Assigning ${assignees.length} team members to Issue #${issueNumber}`);
 
@@ -349,7 +345,7 @@ export class IssueAgent extends BaseAgent {
    * Determine responsibility assignment
    */
   private determineResponsibility(issue: Issue): ResponsibilityLevel {
-    const text = (issue.title + ' ' + issue.body).toLowerCase();
+    const text = (`${issue.title  } ${  issue.body}`).toLowerCase();
 
     // Security issues → CISO
     if (text.match(/\b(security|vulnerability|exploit|breach|cve)\b/)) {

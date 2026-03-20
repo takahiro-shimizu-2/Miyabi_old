@@ -99,8 +99,8 @@ export class DiscussionsClient {
     } catch (error: any) {
       if (error.message?.includes('Discussions are disabled')) {
         throw new Error(
-          'GitHub Discussions are not enabled for this repository.\n' +
-          'Enable at: https://github.com/' + this.config.owner + '/' + this.config.repo + '/settings'
+          `GitHub Discussions are not enabled for this repository.\n` +
+          `Enable at: https://github.com/${  this.config.owner  }/${  this.config.repo  }/settings`
         );
       }
       throw error;
@@ -373,7 +373,7 @@ _[This section will be enhanced in future reports with historical comparisons]_
 
     const announcementsCategoryId = this.getCategoryId('Announcements');
 
-    return await this.createDiscussion({
+    return this.createDiscussion({
       categoryId: announcementsCategoryId,
       title,
       body,
@@ -395,7 +395,7 @@ ${question}
 **Timestamp**: ${new Date().toISOString()}
 `;
 
-    return await this.createDiscussion({
+    return this.createDiscussion({
       categoryId: qaCategoryId,
       title,
       body,
@@ -440,7 +440,7 @@ ${story}
 🤖 Powered by [Claude Code](https://claude.com/claude-code)
 `;
 
-    return await this.createDiscussion({
+    return this.createDiscussion({
       categoryId: showTellCategoryId,
       title,
       body,

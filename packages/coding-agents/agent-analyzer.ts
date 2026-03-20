@@ -7,9 +7,9 @@
  * - Optimal assignment strategy
  */
 
-import { Task } from './types/index';
-import { AgentTemplate } from './types/agent-template';
-import {
+import type { Task } from './types/index';
+import type { AgentTemplate } from './types/agent-template';
+import type {
   AgentAnalysisResult,
   TaskComplexityAnalysis,
   AgentRequirements,
@@ -448,9 +448,9 @@ export class AgentAnalyzer {
     const apiTools = ['axios', 'fetch', 'octokit'];
     const serviceTools = ['github', 'vercel', 'firebase', 'aws'];
 
-    if (commandTools.includes(toolName)) return 'command';
-    if (apiTools.includes(toolName)) return 'api';
-    if (serviceTools.includes(toolName)) return 'service';
+    if (commandTools.includes(toolName)) {return 'command';}
+    if (apiTools.includes(toolName)) {return 'api';}
+    if (serviceTools.includes(toolName)) {return 'service';}
     return 'library';
   }
 }

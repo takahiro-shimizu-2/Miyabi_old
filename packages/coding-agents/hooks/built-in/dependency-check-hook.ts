@@ -2,7 +2,7 @@
  * DependencyCheckHook - Validates task dependencies are resolved
  */
 
-import { PreHook, HookContext } from '../../types/hooks';
+import type { PreHook, HookContext } from '../../types/hooks';
 import { logger } from '../../ui/index';
 import * as fs from 'fs';
 import * as path from 'path';

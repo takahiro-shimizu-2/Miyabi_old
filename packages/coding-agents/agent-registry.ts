@@ -5,17 +5,17 @@
  * Uses AI-based analysis to determine optimal agent configuration
  */
 
-import { DynamicAgent } from './dynamic-agent';
+import type { DynamicAgent } from './dynamic-agent';
 import { AgentFactory } from './agent-factory';
 import { AgentAnalyzer } from './agent-analyzer';
 import { ToolFactory } from './tool-factory';
-import { Task, AgentConfig } from './types/index';
-import {
+import type { Task, AgentConfig } from './types/index';
+import type {
   AgentAssignmentCriteria,
   AgentAssignmentResult,
   AgentInstance,
 } from './types/agent-template';
-import { AgentAnalysisResult } from './types/agent-analysis';
+import type { AgentAnalysisResult } from './types/agent-analysis';
 import { HookManager } from './hooks/hook-manager';
 import { TTLCache } from './utils/cache';
 import { logger } from './ui/index';
@@ -140,7 +140,7 @@ export class AgentRegistry {
         // Try to find existing idle agent
         const existingAgent = this.findIdleAgent(task, agentType);
 
-        if (existingAgent && existingAgent.canHandleTask(task)) {
+        if (existingAgent?.canHandleTask(task)) {
           // Check concurrent task limit
           const runningTasks = this.getAgentRunningTaskCount(existingAgent);
 

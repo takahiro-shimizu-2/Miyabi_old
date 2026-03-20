@@ -14,14 +14,14 @@
  */
 
 import { BaseAgent } from '../base-agent';
-import {
+import type {
   AgentResult,
   AgentConfig,
   Task,
   PRRequest,
   PRResult,
 } from '../types/index';
-import { Octokit } from '@octokit/rest';
+import type { Octokit } from '@octokit/rest';
 import { withRetry } from '@miyabi/shared-utils/retry';
 import { GitRepository } from '../utils/git-repository';
 import { getGitHubClient } from '@miyabi/shared-utils/api-client';
@@ -269,7 +269,7 @@ export class PRAgent extends BaseAgent {
       const result = await this.executeCommand('git diff --name-only HEAD origin/main');
       const files = result.stdout.split('\n').filter(f => f.trim());
 
-      if (files.length === 0) return '';
+      if (files.length === 0) {return '';}
 
       // Find common directory
       const dirs = files
@@ -402,8 +402,7 @@ export class PRAgent extends BaseAgent {
     this.log(`🚀 Creating Pull Request: ${request.title}`);
 
     try {
-      const response = await withRetry(async () => {
-        return await this.octokit.pulls.create({
+      const response = await withRetry(async () => this.octokit.pulls.create({
           owner: this.owner,
           repo: this.repo,
           title: request.title,
@@ -411,8 +410,7 @@ export class PRAgent extends BaseAgent {
           head: request.headBranch,
           base: request.baseBranch,
           draft: request.draft,
-        });
-      });
+        }));
 
       await this.logToolInvocation(
         'github_api_create_pr',
@@ -478,7 +476,7 @@ export class PRAgent extends BaseAgent {
    * Request reviewers for PR (with automatic retry on transient failures)
    */
   private async requestReviewers(prNumber: number, reviewers: string[]): Promise<void> {
-    if (reviewers.length === 0) return;
+    if (reviewers.length === 0) {return;}
 
     this.log(`👥 Requesting reviewers for PR #${prNumber}: ${reviewers.join(', ')}`);
 

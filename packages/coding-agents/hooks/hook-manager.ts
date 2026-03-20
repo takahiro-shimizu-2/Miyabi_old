@@ -4,7 +4,7 @@
  * Provides registration and execution of prehooks, posthooks, and error hooks
  */
 
-import {
+import type {
   PreHook,
   PostHook,
   ErrorHook,
@@ -13,7 +13,7 @@ import {
   HookOptions,
   HookRegistryEntry,
 } from '../types/hooks';
-import { AgentResult } from '../types/index';
+import type { AgentResult } from '../types/index';
 import { logger } from '../ui/index';
 
 export class HookManager {
@@ -234,7 +234,7 @@ export class HookManager {
    */
   private getSortedHooks<T extends PreHook | PostHook | ErrorHook>(
     hookMap: Map<string, HookRegistryEntry<T>>
-  ): HookRegistryEntry<T>[] {
+  ): Array<HookRegistryEntry<T>> {
     return Array.from(hookMap.values()).sort(
       (a, b) => a.hook.priority - b.hook.priority
     );

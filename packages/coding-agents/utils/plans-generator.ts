@@ -12,7 +12,7 @@
  * - Estimated vs actual time tracking
  */
 
-import {
+import type {
   Task,
   DAG,
   TaskDecomposition,
@@ -60,7 +60,7 @@ export class PlansGenerator {
       if (section.startsWith('Progress')) {
         return progressSection;
       }
-      return section.startsWith('# ') ? section : '## ' + section;
+      return section.startsWith('# ') ? section : `## ${  section}`;
     });
 
     return updated.join('\n');
@@ -191,7 +191,7 @@ ${dag.levels
 ${level
   .map((taskId) => {
     const task = tasks.find((t) => t.id === taskId);
-    if (!task) return '';
+    if (!task) {return '';}
     return this.formatTask(task, dag);
   })
   .join('\n\n')}`

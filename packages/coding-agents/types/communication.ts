@@ -5,7 +5,7 @@
  * Issue: #139 - Agent Communication Protocol定義
  */
 
-import { AgentType, Task, AgentResult, EscalationInfo, AgentStatus } from './index';
+import type { AgentType, Task, AgentResult, EscalationInfo, AgentStatus } from './index';
 
 // ============================================================================
 // Message Types

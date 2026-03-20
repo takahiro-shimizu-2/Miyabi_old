@@ -4,7 +4,7 @@
  * Provides extensible prehook/posthook mechanism for Agent lifecycle
  */
 
-import { Task, AgentResult, AgentConfig } from './index';
+import type { Task, AgentResult, AgentConfig } from './index';
 
 /**
  * Hook execution context

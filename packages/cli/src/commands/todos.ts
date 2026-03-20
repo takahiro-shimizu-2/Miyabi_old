@@ -6,7 +6,7 @@
 
 import chalk from 'chalk';
 import ora from 'ora';
-import { Command } from 'commander';
+import type { Command } from 'commander';
 import { readFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 

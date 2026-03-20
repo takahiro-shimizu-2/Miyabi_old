@@ -83,13 +83,13 @@ function detectLanguages(): string[] {
   const languages: string[] = [];
 
   // Check for language-specific files
-  if (fs.existsSync('package.json')) languages.push('JavaScript/TypeScript');
-  if (fs.existsSync('requirements.txt') || fs.existsSync('setup.py')) languages.push('Python');
-  if (fs.existsSync('go.mod')) languages.push('Go');
-  if (fs.existsSync('Cargo.toml')) languages.push('Rust');
-  if (fs.existsSync('pom.xml') || fs.existsSync('build.gradle')) languages.push('Java');
-  if (fs.existsSync('Gemfile')) languages.push('Ruby');
-  if (fs.existsSync('composer.json')) languages.push('PHP');
+  if (fs.existsSync('package.json')) {languages.push('JavaScript/TypeScript');}
+  if (fs.existsSync('requirements.txt') || fs.existsSync('setup.py')) {languages.push('Python');}
+  if (fs.existsSync('go.mod')) {languages.push('Go');}
+  if (fs.existsSync('Cargo.toml')) {languages.push('Rust');}
+  if (fs.existsSync('pom.xml') || fs.existsSync('build.gradle')) {languages.push('Java');}
+  if (fs.existsSync('Gemfile')) {languages.push('Ruby');}
+  if (fs.existsSync('composer.json')) {languages.push('PHP');}
 
   return languages.length > 0 ? languages : ['Unknown'];
 }
@@ -104,20 +104,20 @@ function detectFramework(): string | null {
       const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8'));
       const deps = { ...pkg.dependencies, ...pkg.devDependencies };
 
-      if (deps.next) return 'Next.js';
-      if (deps.react) return 'React';
-      if (deps.vue) return 'Vue.js';
-      if (deps.svelte) return 'Svelte';
-      if (deps.express) return 'Express';
-      if (deps['@nestjs/core']) return 'NestJS';
+      if (deps.next) {return 'Next.js';}
+      if (deps.react) {return 'React';}
+      if (deps.vue) {return 'Vue.js';}
+      if (deps.svelte) {return 'Svelte';}
+      if (deps.express) {return 'Express';}
+      if (deps['@nestjs/core']) {return 'NestJS';}
     }
 
     // Check for other frameworks
     if (fs.existsSync('requirements.txt')) {
       const reqs = fs.readFileSync('requirements.txt', 'utf-8');
-      if (reqs.includes('django')) return 'Django';
-      if (reqs.includes('flask')) return 'Flask';
-      if (reqs.includes('fastapi')) return 'FastAPI';
+      if (reqs.includes('django')) {return 'Django';}
+      if (reqs.includes('flask')) {return 'Flask';}
+      if (reqs.includes('fastapi')) {return 'FastAPI';}
     }
   } catch {
     // Ignore parsing errors
@@ -130,10 +130,10 @@ function detectFramework(): string | null {
  * Detect build tool
  */
 function detectBuildTool(): string | null {
-  if (fs.existsSync('vite.config.ts') || fs.existsSync('vite.config.js')) return 'Vite';
-  if (fs.existsSync('webpack.config.js')) return 'Webpack';
-  if (fs.existsSync('rollup.config.js')) return 'Rollup';
-  if (fs.existsSync('tsconfig.json')) return 'TypeScript';
+  if (fs.existsSync('vite.config.ts') || fs.existsSync('vite.config.js')) {return 'Vite';}
+  if (fs.existsSync('webpack.config.js')) {return 'Webpack';}
+  if (fs.existsSync('rollup.config.js')) {return 'Rollup';}
+  if (fs.existsSync('tsconfig.json')) {return 'TypeScript';}
 
   return null;
 }
@@ -142,11 +142,11 @@ function detectBuildTool(): string | null {
  * Detect package manager
  */
 function detectPackageManager(): string | null {
-  if (fs.existsSync('pnpm-lock.yaml')) return 'pnpm';
-  if (fs.existsSync('yarn.lock')) return 'yarn';
-  if (fs.existsSync('package-lock.json')) return 'npm';
-  if (fs.existsSync('Gemfile.lock')) return 'bundler';
-  if (fs.existsSync('poetry.lock')) return 'poetry';
+  if (fs.existsSync('pnpm-lock.yaml')) {return 'pnpm';}
+  if (fs.existsSync('yarn.lock')) {return 'yarn';}
+  if (fs.existsSync('package-lock.json')) {return 'npm';}
+  if (fs.existsSync('Gemfile.lock')) {return 'bundler';}
+  if (fs.existsSync('poetry.lock')) {return 'poetry';}
 
   return null;
 }

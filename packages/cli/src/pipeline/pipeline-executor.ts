@@ -217,7 +217,7 @@ export function parsePipeline(pipelineStr: string): PipelineCommand[] {
  */
 function parseCommand(commandStr: string): PipelineCommand | null {
   const match = commandStr.match(/^\/?([\w-]+)(?:\s+(.*))?$/);
-  if (!match) return null;
+  if (!match) {return null;}
 
   const [, type, argsStr] = match;
   const args = parseArgs(argsStr || '');
@@ -460,22 +460,18 @@ export class PipelineExecutor extends EventEmitter {
     });
 
     // Generate-docs handler
-    this.registerHandler('generate-docs', async (_args, _ctx) => {
-      return {
+    this.registerHandler('generate-docs', async (_args, _ctx) => ({
         success: true,
         data: { docsGenerated: true },
         duration: 2000,
-      };
-    });
+      }));
 
     // Miyabi-auto handler
-    this.registerHandler('miyabi-auto', async (_args, _ctx) => {
-      return {
+    this.registerHandler('miyabi-auto', async (_args, _ctx) => ({
         success: true,
         data: { autoMode: true },
         duration: 1000,
-      };
-    });
+      }));
 
     // Miyabi-todos handler
     this.registerHandler('miyabi-todos', async (_args, ctx) => {

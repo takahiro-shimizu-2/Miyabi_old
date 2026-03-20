@@ -8,7 +8,7 @@
  * This utility provides consistent Issue type, severity, impact, and duration estimation.
  */
 
-import { Issue, Task, Severity, ImpactLevel } from '../types/index';
+import type { Issue, Task, Severity, ImpactLevel } from '../types/index';
 
 export class IssueAnalyzer {
   /**
@@ -19,25 +19,25 @@ export class IssueAnalyzer {
     title: string,
     body: string = ''
   ): Task['type'] {
-    const text = (title + ' ' + body).toLowerCase();
+    const text = (`${title  } ${  body}`).toLowerCase();
 
     // Check existing labels first
     for (const label of labels) {
-      if (label.includes('feature')) return 'feature';
-      if (label.includes('bug')) return 'bug';
-      if (label.includes('refactor')) return 'refactor';
-      if (label.includes('documentation')) return 'docs';
-      if (label.includes('test')) return 'test';
-      if (label.includes('deployment')) return 'deployment';
+      if (label.includes('feature')) {return 'feature';}
+      if (label.includes('bug')) {return 'bug';}
+      if (label.includes('refactor')) {return 'refactor';}
+      if (label.includes('documentation')) {return 'docs';}
+      if (label.includes('test')) {return 'test';}
+      if (label.includes('deployment')) {return 'deployment';}
     }
 
     // Keyword-based detection
-    if (text.match(/\b(bug|fix|error|issue|problem|broken)\b/)) return 'bug';
-    if (text.match(/\b(feature|add|new|implement|create)\b/)) return 'feature';
-    if (text.match(/\b(refactor|cleanup|improve|optimize)\b/)) return 'refactor';
-    if (text.match(/\b(doc|documentation|readme|guide)\b/)) return 'docs';
-    if (text.match(/\b(test|spec|coverage)\b/)) return 'test';
-    if (text.match(/\b(deploy|release|ci|cd)\b/)) return 'deployment';
+    if (text.match(/\b(bug|fix|error|issue|problem|broken)\b/)) {return 'bug';}
+    if (text.match(/\b(feature|add|new|implement|create)\b/)) {return 'feature';}
+    if (text.match(/\b(refactor|cleanup|improve|optimize)\b/)) {return 'refactor';}
+    if (text.match(/\b(doc|documentation|readme|guide)\b/)) {return 'docs';}
+    if (text.match(/\b(test|spec|coverage)\b/)) {return 'test';}
+    if (text.match(/\b(deploy|release|ci|cd)\b/)) {return 'deployment';}
 
     return 'feature'; // Default
   }
@@ -57,15 +57,15 @@ export class IssueAnalyzer {
     title: string,
     body: string = ''
   ): Severity {
-    const text = (title + ' ' + body).toLowerCase();
+    const text = (`${title  } ${  body}`).toLowerCase();
 
     // Check existing labels first
     for (const label of labels) {
-      if (label.includes('Sev.1-Critical')) return 'Sev.1-Critical';
-      if (label.includes('Sev.2-High')) return 'Sev.2-High';
-      if (label.includes('Sev.3-Medium')) return 'Sev.3-Medium';
-      if (label.includes('Sev.4-Low')) return 'Sev.4-Low';
-      if (label.includes('Sev.5-Trivial')) return 'Sev.5-Trivial';
+      if (label.includes('Sev.1-Critical')) {return 'Sev.1-Critical';}
+      if (label.includes('Sev.2-High')) {return 'Sev.2-High';}
+      if (label.includes('Sev.3-Medium')) {return 'Sev.3-Medium';}
+      if (label.includes('Sev.4-Low')) {return 'Sev.4-Low';}
+      if (label.includes('Sev.5-Trivial')) {return 'Sev.5-Trivial';}
     }
 
     // Keyword-based detection
@@ -100,14 +100,14 @@ export class IssueAnalyzer {
     title: string,
     body: string = ''
   ): ImpactLevel {
-    const text = (title + ' ' + body).toLowerCase();
+    const text = (`${title  } ${  body}`).toLowerCase();
 
     // Check existing labels first
     for (const label of labels) {
-      if (label.includes('影響度-Critical')) return 'Critical';
-      if (label.includes('影響度-High')) return 'High';
-      if (label.includes('影響度-Medium')) return 'Medium';
-      if (label.includes('影響度-Low')) return 'Low';
+      if (label.includes('影響度-Critical')) {return 'Critical';}
+      if (label.includes('影響度-High')) {return 'High';}
+      if (label.includes('影響度-Medium')) {return 'Medium';}
+      if (label.includes('影響度-Low')) {return 'Low';}
     }
 
     // Keyword-based detection
@@ -151,7 +151,7 @@ export class IssueAnalyzer {
     let estimate = baseEstimates[type];
 
     // Adjust based on complexity indicators
-    const text = (title + ' ' + body).toLowerCase();
+    const text = (`${title  } ${  body}`).toLowerCase();
     if (text.match(/\b(large|major|complex|multiple)\b/)) {
       estimate *= 2;
     }

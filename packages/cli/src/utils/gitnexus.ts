@@ -4,11 +4,11 @@
 import { getGniPath } from "./hub-paths.js";
 import { runScript, scriptExists } from "./shell-bridge.js";
 
-export type GniResult = {
+export interface GniResult {
   success: boolean;
   output: string;
   command: string;
-};
+}
 
 /** Run a GNI subcommand */
 export function runGni(args: string[]): GniResult {

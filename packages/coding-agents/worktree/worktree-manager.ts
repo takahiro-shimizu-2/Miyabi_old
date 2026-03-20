@@ -562,7 +562,7 @@ export class WorktreeManager {
   async writeExecutionContext(issueNumber: number): Promise<void> {
     const worktree = this.activeWorktrees.get(issueNumber);
 
-    if (!worktree || !worktree.executionContext) {
+    if (!worktree?.executionContext) {
       this.log(`⚠️  No execution context found for issue #${issueNumber}`);
       return;
     }

@@ -4,7 +4,7 @@
  * Allows agents to create and use tools dynamically during execution
  */
 
-import {
+import type {
   ToolRequirement,
   DynamicToolSpec,
   ToolCreationResult,
@@ -182,8 +182,8 @@ export class DynamicToolCreator implements IToolCreator {
       logger.error(`  Critical issues: ${criticalIssues.length}`);
 
       throw new Error(
-        `Security validation failed: ${criticalIssues.length} critical issue(s) detected\n` +
-        criticalIssues.map((issue) => `  - ${issue.message}`).join('\n')
+        `Security validation failed: ${criticalIssues.length} critical issue(s) detected\n${
+        criticalIssues.map((issue) => `  - ${issue.message}`).join('\n')}`
       );
     }
 
@@ -224,8 +224,8 @@ export class DynamicToolCreator implements IToolCreator {
       logger.error(`  Critical issues: ${criticalIssues.length}`);
 
       throw new Error(
-        `Security validation failed: ${criticalIssues.length} critical issue(s) detected\n` +
-        criticalIssues.map((issue) => `  - ${issue.message}`).join('\n')
+        `Security validation failed: ${criticalIssues.length} critical issue(s) detected\n${
+        criticalIssues.map((issue) => `  - ${issue.message}`).join('\n')}`
       );
     }
 

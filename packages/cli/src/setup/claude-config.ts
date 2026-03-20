@@ -158,7 +158,7 @@ export async function deployClaudeConfigToGitHub(
   const claudeMdTemplate = path.join(templatesDir, 'CLAUDE.md.template');
 
   // Read and collect all files to commit
-  const filesToCommit: { path: string; content: string }[] = [];
+  const filesToCommit: Array<{ path: string; content: string }> = [];
 
   // 1. Collect all .claude/ directory files
   if (fs.existsSync(claudeTemplateDir)) {
@@ -273,8 +273,8 @@ export async function deployClaudeConfigToGitHub(
 async function collectDirectoryFiles(
   srcDir: string,
   basePrefix: string
-): Promise<{ path: string; content: string }[]> {
-  const files: { path: string; content: string }[] = [];
+): Promise<Array<{ path: string; content: string }>> {
+  const files: Array<{ path: string; content: string }> = [];
 
   const entries = fs.readdirSync(srcDir, { withFileTypes: true });
 

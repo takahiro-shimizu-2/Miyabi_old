@@ -12,7 +12,7 @@
  * - DFS for cycle detection
  */
 
-import { Task, DAG } from '../types/index';
+import type { Task, DAG } from '../types/index';
 
 /**
  * DAG Manager - Centralized graph operations
@@ -150,7 +150,7 @@ export class DAGManager {
       for (const neighbor of neighbors) {
         if (!visited.has(neighbor)) {
           // Recursively check neighbor
-          if (hasCycle(neighbor)) return true;
+          if (hasCycle(neighbor)) {return true;}
         } else if (recursionStack.has(neighbor)) {
           // Back edge detected = cycle!
           return true;
@@ -203,7 +203,7 @@ export class DAGManager {
       for (const neighbor of neighbors) {
         if (!visited.has(neighbor)) {
           const cyclePath = findCycle(neighbor, [...currentPath]);
-          if (cyclePath.length > 0) return cyclePath;
+          if (cyclePath.length > 0) {return cyclePath;}
         } else if (recursionStack.has(neighbor)) {
           // Found cycle! Return path from neighbor to current node
           const cycleStart = currentPath.indexOf(neighbor);
@@ -218,7 +218,7 @@ export class DAGManager {
     for (const node of dag.nodes) {
       if (!visited.has(node.id)) {
         const cyclePath = findCycle(node.id, []);
-        if (cyclePath.length > 0) return cyclePath;
+        if (cyclePath.length > 0) {return cyclePath;}
       }
     }
 

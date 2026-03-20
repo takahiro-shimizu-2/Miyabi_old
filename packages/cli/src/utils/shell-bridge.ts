@@ -5,11 +5,11 @@
 import { execFileSync, execSync } from "node:child_process";
 import { existsSync } from "node:fs";
 
-export type ShellOptions = {
+export interface ShellOptions {
   cwd?: string;
   timeout?: number;
   env?: Record<string, string>;
-};
+}
 
 const DEFAULT_TIMEOUT = 30_000;
 

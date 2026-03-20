@@ -5,7 +5,7 @@
  */
 
 import { BaseAgent } from '../../base-agent';
-import { Task, AgentResult, AgentConfig } from '../../types/index';
+import type { Task, AgentResult, AgentConfig } from '../../types/index';
 import {
   HookManager,
   EnvironmentCheckHook,

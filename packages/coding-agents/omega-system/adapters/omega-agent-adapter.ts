@@ -11,11 +11,13 @@
 import type { Issue, Task, AgentType, DAG } from '../../types';
 import type { IntentSpace, Goal, GoalType, GoalPriority } from '../../types/intent';
 import type { WorldSpace } from '../../types/world';
-import type { OmegaResult } from '../omega-engine';
-import { OmegaEngine, OmegaEngineConfig } from '../omega-engine';
+import type { OmegaResult , OmegaEngineConfig } from '../omega-engine';
+import { OmegaEngine } from '../omega-engine';
 import { issueToIntent } from './issue-to-intent';
-import { contextToWorld, ExecutionContext } from './context-to-world';
-import { deliverableToReport, ExecutionReport } from './deliverable-to-report';
+import type { ExecutionContext } from './context-to-world';
+import { contextToWorld } from './context-to-world';
+import type { ExecutionReport } from './deliverable-to-report';
+import { deliverableToReport } from './deliverable-to-report';
 
 // ============================================================================
 // Types
@@ -387,7 +389,7 @@ export class OmegaAgentAdapter {
    */
   private extractTasks(result: OmegaResult): Task[] {
     const taskSet = result.trace.intermediates.taskSet;
-    if (!taskSet) return [];
+    if (!taskSet) {return [];}
 
     return taskSet.tasks.map(gt => ({
       id: gt.id,

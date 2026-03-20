@@ -3,7 +3,7 @@
  */
 
 import chalk from "chalk";
-import { Command } from "commander";
+import type { Command } from "commander";
 import { execSync } from "child_process";
 
 function run(cmd: string): string {
@@ -17,10 +17,10 @@ function run(cmd: string): string {
 async function voiceAnnounce(message: string, options: { device?: string }): Promise<void> {
   const device = options.device || "office";
   console.log(chalk.cyan.bold("\n\uD83D\uDD0A Voice Announce\n"));
-  console.log(chalk.white("  Message: " + message));
-  console.log(chalk.white("  Device:  " + device));
+  console.log(chalk.white(`  Message: ${  message}`));
+  console.log(chalk.white(`  Device:  ${  device}`));
   const safe = message.replace(/'/g, "\u2019");
-  run("~/.claude/skills/voicebox-narrator/say.sh '" + safe + "' 1");
+  run(`~/.claude/skills/voicebox-narrator/say.sh '${  safe  }' 1`);
   console.log(chalk.green("  \u2713 Sent to VoiceBox"));
   console.log("");
 }
@@ -28,7 +28,7 @@ async function voiceAnnounce(message: string, options: { device?: string }): Pro
 async function voiceStatus(): Promise<void> {
   console.log(chalk.cyan.bold("\n\uD83C\uDFA4 Voice System Status\n"));
   const vv = run("curl -s http://localhost:50021/version 2>/dev/null");
-  console.log(chalk.white("  VOICEVOX: " + (vv ? chalk.green(vv) : chalk.red("NOT RUNNING"))));
+  console.log(chalk.white(`  VOICEVOX: ${  vv ? chalk.green(vv) : chalk.red("NOT RUNNING")}`));
   console.log("");
 }
 

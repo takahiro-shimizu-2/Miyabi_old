@@ -1,6 +1,6 @@
 # Miyabi CLI - Claude Code Context
 
-**Version**: 0.18.0
+**Version**: 0.22.0
 
 **This file is optimized for AI coding agents (Claude Code).**
 Human users should refer to README.md instead.
@@ -549,8 +549,50 @@ Miyabi treats GitHub as an operating system:
 
 ---
 
+## New Commands (v0.22.0)
+
+### DevOps Integration (miyabi-hub)
+
+```bash
+# GitNexus Impact Analysis (14 subcommands)
+miyabi gni status              # Index status
+miyabi gni reindex             # Rebuild index
+miyabi gni impact <target>     # Impact analysis before changes
+miyabi gni context <symbol>    # 360-degree code view
+miyabi gni query "<query>"     # Knowledge graph search
+
+# Agent Skill Bus (11 subcommands)
+miyabi bus stats               # Queue statistics
+miyabi bus dispatch            # Get next task
+miyabi bus health              # Skill health scores
+miyabi bus enqueue             # Add task to queue
+miyabi bus record-run          # Record execution result
+miyabi bus flagged             # List flagged skills
+
+# Task Management (4 subcommands)
+miyabi task list               # List open GitHub Issues
+miyabi task view <number>      # View issue details
+miyabi task add "<title>"      # Create new issue
+miyabi task close <number>     # Close issue
+```
+
+### System Management
+
+```bash
+miyabi cycle check             # System state check
+miyabi cycle full              # Full feedback loop
+miyabi cycle auto              # Autonomous cycle mode
+miyabi release list            # List releases
+miyabi release announce <repo> # X announcement
+miyabi voice status            # Voice system status
+miyabi skills list             # List all skills
+miyabi skills health           # Skill health check
+```
+
 ## Version History
 
+- **v0.22.0** - miyabi-hub integration (gni, bus, task), build fix, 30 commands
+- **v0.21.0** - Cycle, release, voice commands
 - **v0.18.0** - Pipeline command, command composition
 - **v0.17.0** - Cross-platform support (Windows)
 - **v0.16.0** - TUI Dashboard, Human-in-the-Loop, Steve Jobs UX

@@ -97,7 +97,7 @@ export class AgentWebSocketServer {
 
     this.wss.on('listening', () => {
       logger.success(`[WebSocket] Server listening on port ${this.port}`);
-      logger.info('[WebSocket] Dashboard can connect to ws://localhost:' + this.port);
+      logger.info(`[WebSocket] Dashboard can connect to ws://localhost:${  this.port}`);
     });
   }
 
@@ -107,10 +107,10 @@ export class AgentWebSocketServer {
         return { type: 'pong', timestamp: Date.now() };
 
       case 'query':
-        return await this.handleQuery(message.command!, message.payload);
+        return this.handleQuery(message.command!, message.payload);
 
       case 'command':
-        return await this.handleCommand(message.command!, message.payload);
+        return this.handleCommand(message.command!, message.payload);
 
       default:
         throw new Error(`Unknown message type: ${message.type}`);
@@ -120,7 +120,7 @@ export class AgentWebSocketServer {
   private async handleQuery(command: string, _payload: any): Promise<AgentResponse> {
     switch (command) {
       case 'get-stats':
-        return await this.getImprovementsStats();
+        return this.getImprovementsStats();
 
       case 'cache-info':
         return this.getCacheInfo();
@@ -136,16 +136,16 @@ export class AgentWebSocketServer {
   private async handleCommand(command: string, payload: any): Promise<AgentResponse> {
     switch (command) {
       case 'run-test':
-        return await this.runTest(payload);
+        return this.runTest(payload);
 
       case 'validate-code':
-        return await this.validateCode(payload);
+        return this.validateCode(payload);
 
       case 'analyze-task':
-        return await this.analyzeTask(payload);
+        return this.analyzeTask(payload);
 
       case 'retry-test':
-        return await this.retryTest(payload);
+        return this.retryTest(payload);
 
       default:
         throw new Error(`Unknown command: ${command}`);

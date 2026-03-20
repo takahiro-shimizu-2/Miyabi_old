@@ -11,7 +11,7 @@
  */
 
 import { ReviewAgent } from './review-agent';
-import {
+import type {
   Task,
   QualityReport,
   QualityIssue,
@@ -192,21 +192,21 @@ export class ReviewLoop {
 
     if (report.breakdown) {
       if (report.breakdown.eslintScore !== undefined) {
-        this.log(`│ ${'ESLint'.padEnd(maxWidth)} │ ${(report.breakdown.eslintScore + '/100').padEnd(7)} │`);
+        this.log(`│ ${'ESLint'.padEnd(maxWidth)} │ ${(`${report.breakdown.eslintScore  }/100`).padEnd(7)} │`);
       }
       if (report.breakdown.typeScriptScore !== undefined) {
-        this.log(`│ ${'TypeScript'.padEnd(maxWidth)} │ ${(report.breakdown.typeScriptScore + '/100').padEnd(7)} │`);
+        this.log(`│ ${'TypeScript'.padEnd(maxWidth)} │ ${(`${report.breakdown.typeScriptScore  }/100`).padEnd(7)} │`);
       }
       if (report.breakdown.securityScore !== undefined) {
-        this.log(`│ ${'Security'.padEnd(maxWidth)} │ ${(report.breakdown.securityScore + '/100').padEnd(7)} │`);
+        this.log(`│ ${'Security'.padEnd(maxWidth)} │ ${(`${report.breakdown.securityScore  }/100`).padEnd(7)} │`);
       }
       if (report.breakdown.testCoverageScore !== undefined) {
-        this.log(`│ ${'Test Coverage'.padEnd(maxWidth)} │ ${(report.breakdown.testCoverageScore + '/100').padEnd(7)} │`);
+        this.log(`│ ${'Test Coverage'.padEnd(maxWidth)} │ ${(`${report.breakdown.testCoverageScore  }/100`).padEnd(7)} │`);
       }
     }
 
     this.log(`├${separator}┤`);
-    this.log(`│ ${'Overall Quality'.padEnd(maxWidth)} │ ${(report.score + '/100').padEnd(7)} │`);
+    this.log(`│ ${'Overall Quality'.padEnd(maxWidth)} │ ${(`${report.score  }/100`).padEnd(7)} │`);
     this.log(`└${separator}┘\n`);
   }
 
@@ -448,5 +448,5 @@ export async function runReviewLoop(
 ): Promise<ReviewLoopResult> {
   const agent = new ReviewAgent(config);
   const loop = new ReviewLoop(agent, options);
-  return await loop.execute();
+  return loop.execute();
 }

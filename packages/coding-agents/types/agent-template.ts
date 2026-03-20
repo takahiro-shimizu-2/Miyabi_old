@@ -4,8 +4,8 @@
  * Defines structures for dynamic agent creation and assignment
  */
 
-import { Task, AgentResult, AgentConfig } from './index';
-import { HookManager } from '../hooks/hook-manager';
+import type { Task, AgentResult, AgentConfig } from './index';
+import type { HookManager } from '../hooks/hook-manager';
 import type { IToolCreator } from './tool-creator-interface';
 
 /**

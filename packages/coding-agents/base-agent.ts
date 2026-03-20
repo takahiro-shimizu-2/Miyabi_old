@@ -8,7 +8,7 @@
  * - Logging
  */
 
-import {
+import type {
   AgentType,
   AgentResult,
   AgentMetrics,
@@ -17,21 +17,23 @@ import {
   Severity,
   Task,
   AgentConfig,
-  AgentError,
-  EscalationError,
   CodexPromptChain,
   ToolInvocation,
-  IssueState,
-} from './types/index';
+  IssueState} from './types/index';
 import {
+  AgentError,
+  EscalationError
+} from './types/index';
+import type {
   AgentMessage,
   MessageResponse,
-  MessageType,
+  MessageType} from './types/communication';
+import {
   MessagePriority,
 } from './types/communication';
 import { logger, type AgentName } from './ui/index';
 import { PerformanceMonitor } from './monitoring/performance-monitor';
-import { IssueTraceLogger } from './logging/issue-trace-logger';
+import type { IssueTraceLogger } from './logging/issue-trace-logger';
 import { globalMessageBus } from './utils/message-bus';
 import { globalMetricsCollector } from './monitoring/global-metrics';
 import { writeFileAsync, appendFileAsync } from '@miyabi/shared-utils';
@@ -198,7 +200,7 @@ export abstract class BaseAgent {
         error: (error as Error).message,
       });
 
-      return await this.handleError(error as Error);
+      return this.handleError(error as Error);
     }
   }
 
@@ -792,9 +794,7 @@ ${JSON.stringify(invocations, null, 2)}
    * This should be called in the constructor or initialize method
    */
   protected registerMessageHandler(): void {
-    globalMessageBus.register(this.agentType, async (message) => {
-      return await this.receiveMessage(message);
-    });
+    globalMessageBus.register(this.agentType, async (message) => this.receiveMessage(message));
 
     logger.system(`${this.agentType} registered for messaging`);
   }

@@ -4,14 +4,14 @@
  * Creates tools, templates, hooks dynamically based on requirements
  */
 
-import {
+import type {
   ToolRequirement,
   HookRequirement,
   DynamicToolSpec,
   ToolCreationResult,
 } from './types/agent-analysis';
-import { PreHook, PostHook, ErrorHook, HookContext } from './types/hooks';
-import { AgentResult } from './types/index';
+import type { PreHook, PostHook, ErrorHook, HookContext } from './types/hooks';
+import type { AgentResult } from './types/index';
 import { logger } from './ui/index';
 
 export class ToolFactory {

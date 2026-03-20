@@ -73,13 +73,13 @@ export class TaskOrchestrator {
   getAvailableTasks(_workerId: string, workerSkills: string[]): Task[] {
     return this.taskQueue.filter(task => {
       // Must be pending
-      if (task.status !== 'pending') return false;
+      if (task.status !== 'pending') {return false;}
 
       // Check dependencies
-      if (!this.areDependenciesMet(task)) return false;
+      if (!this.areDependenciesMet(task)) {return false;}
 
       // Check skill match
-      if (!this.hasRequiredSkills(workerSkills, task.requiredSkills)) return false;
+      if (!this.hasRequiredSkills(workerSkills, task.requiredSkills)) {return false;}
 
       return true;
     });
@@ -260,10 +260,10 @@ export class TaskOrchestrator {
     // Check all active tasks
     for (const otherTask of this.tasks.values()) {
       // Skip self
-      if (otherTask.id === task.id) continue;
+      if (otherTask.id === task.id) {continue;}
 
       // Only check claimed or in-progress tasks
-      if (otherTask.status !== 'claimed' && otherTask.status !== 'in_progress') continue;
+      if (otherTask.status !== 'claimed' && otherTask.status !== 'in_progress') {continue;}
 
       // Check for overlapping files
       const overlap = task.metadata.files.some(file =>

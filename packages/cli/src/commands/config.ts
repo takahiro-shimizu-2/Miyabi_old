@@ -60,7 +60,7 @@ export async function config(options: ConfigOptions = {}) {
       message: 'GitHub トークン:',
       when: (answers) => answers.setToken,
       validate: (input) => {
-        if (!input) return 'トークンを入力してください';
+        if (!input) {return 'トークンを入力してください';}
         if (!input.startsWith('ghp_') && !input.startsWith('github_pat_')) {
           return 'トークン形式が無効です（ghp_ または github_pat_ で始まる必要があります）';
         }

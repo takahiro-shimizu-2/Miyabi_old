@@ -269,7 +269,7 @@ export class EntityRelationMap {
 
     for (const line of lines) {
       const trimmed = line.trim();
-      if (!trimmed) continue;
+      if (!trimmed) {continue;}
 
       // Parse: N1:EntityName $H→ N2:TargetName
       const match = trimmed.match(/^(N[123]):(\w+)\s+(\$[HL])→\s+(N[123]):(\w+)$/);

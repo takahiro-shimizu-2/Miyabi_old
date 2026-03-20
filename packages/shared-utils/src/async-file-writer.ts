@@ -88,7 +88,7 @@ class AsyncFileWriter {
    * Schedule automatic flush
    */
   private scheduleFlush(): void {
-    if (this.flushTimer) return;
+    if (this.flushTimer) {return;}
 
     this.flushTimer = setTimeout(() => {
       this.flush();
@@ -127,7 +127,7 @@ class AsyncFileWriter {
     }
 
     // Process each group
-    const promises: Promise<void>[] = [];
+    const promises: Array<Promise<void>> = [];
 
     for (const [_, tasks] of groupedTasks) {
       const promise = this.processTaskGroup(tasks);
@@ -149,7 +149,7 @@ class AsyncFileWriter {
    * Process a group of tasks for the same file
    */
   private async processTaskGroup(tasks: WriteTask[]): Promise<void> {
-    if (tasks.length === 0) return;
+    if (tasks.length === 0) {return;}
 
     const { filePath, mode } = tasks[0];
 

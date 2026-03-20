@@ -7,7 +7,7 @@
  * - Easy addition of new scanners
  */
 
-import { QualityIssue } from '../types/index';
+import type { QualityIssue } from '../types/index';
 import * as fs from 'fs';
 import { exec } from 'child_process';
 import { promisify } from 'util';

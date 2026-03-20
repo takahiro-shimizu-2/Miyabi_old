@@ -4,7 +4,7 @@
   "parserOptions": {
     "ecmaVersion": 2022,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": true
   },
   "plugins": ["@typescript-eslint"],
   "extends": [
@@ -129,35 +129,6 @@
     "@typescript-eslint/return-await": ["error", "in-try-catch"],
     "eqeqeq": ["error", "always"],
     "curly": ["error", "all"],
-    "brace-style": "off",
-    "@typescript-eslint/brace-style": [
-      "warn",
-      "1tbs",
-      {
-        "allowSingleLine": true
-      }
-    ],
-    "comma-dangle": "off",
-    "@typescript-eslint/comma-dangle": ["warn", "always-multiline"],
-    "quotes": "off",
-    "@typescript-eslint/quotes": [
-      "warn",
-      "single",
-      {
-        "avoidEscape": true,
-        "allowTemplateLiterals": true
-      }
-    ],
-    "semi": "off",
-    "@typescript-eslint/semi": ["error", "always"],
-    "indent": "off",
-    "@typescript-eslint/indent": [
-      "warn",
-      2,
-      {
-        "SwitchCase": 1
-      }
-    ],
     "max-len": [
       "warn",
       {
@@ -225,7 +196,28 @@
     "*.d.ts",
     ".worktrees",
     "packages/*/node_modules",
-    "packages/*/dist"
+    "packages/*/dist",
+    "packages/*/scripts",
+    "packages/*/templates",
+    "docs/archive",
+    "tests",
+    "scripts",
+    "agents",
+    "packages/context-engineering",
+    "packages/doc-generator",
+    "packages/github-projects",
+    "packages/miyabi-agent-sdk",
+    "packages/task-manager",
+    "packages/business-agents",
+    "packages/mcp-bundle",
+    "packages/*/benchmark",
+    "packages/*/demo",
+    "packages/*/examples",
+    "**/__tests__",
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/vitest.config.ts",
+    "playwright.config.ts"
   ],
   "overrides": [
     {

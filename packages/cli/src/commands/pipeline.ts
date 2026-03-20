@@ -10,7 +10,7 @@
  *   miyabi pipeline --dry-run "/review && /test"
  */
 
-import { Command } from 'commander';
+import type { Command } from 'commander';
 import chalk from 'chalk';
 import {
   PipelineExecutor,
@@ -161,7 +161,7 @@ export async function executePipeline(
  * Set up event handlers for executor
  */
 function setupEventHandlers(executor: PipelineExecutor, options: PipelineOptions): void {
-  if (options.json) return;
+  if (options.json) {return;}
 
   executor.on('pipeline:start', ({ pipelineId, commands }) => {
     if (options.verbose) {

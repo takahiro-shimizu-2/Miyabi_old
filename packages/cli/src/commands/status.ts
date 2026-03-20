@@ -203,12 +203,12 @@ async function getStatusData(
     for (const label of issue.labels) {
       const labelName = typeof label === 'string' ? label : label.name || '';
 
-      if (labelName.includes('state:pending')) states.pending++;
-      else if (labelName.includes('state:analyzing')) states.analyzing++;
-      else if (labelName.includes('state:implementing')) states.implementing++;
-      else if (labelName.includes('state:reviewing')) states.reviewing++;
-      else if (labelName.includes('state:blocked')) states.blocked++;
-      else if (labelName.includes('state:paused')) states.paused++;
+      if (labelName.includes('state:pending')) {states.pending++;}
+      else if (labelName.includes('state:analyzing')) {states.analyzing++;}
+      else if (labelName.includes('state:implementing')) {states.implementing++;}
+      else if (labelName.includes('state:reviewing')) {states.reviewing++;}
+      else if (labelName.includes('state:blocked')) {states.blocked++;}
+      else if (labelName.includes('state:paused')) {states.paused++;}
     }
   }
 

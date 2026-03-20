@@ -240,7 +240,7 @@ export class LockManager {
    */
   private getLockFileName(file: string): string {
     // Convert file path to safe filename
-    return file.replace(/[^a-zA-Z0-9]/g, '_') + '.lock';
+    return `${file.replace(/[^a-zA-Z0-9]/g, '_')  }.lock`;
   }
 
   /**

@@ -101,7 +101,7 @@ async function generatePackageJson(projectPath: string, projectName: string): Pr
 
   fs.writeFileSync(
     path.join(projectPath, 'package.json'),
-    JSON.stringify(packageJson, null, 2) + '\n'
+    `${JSON.stringify(packageJson, null, 2)  }\n`
   );
 }
 
@@ -129,7 +129,7 @@ async function generateTsConfig(projectPath: string): Promise<void> {
 
   fs.writeFileSync(
     path.join(projectPath, 'tsconfig.json'),
-    JSON.stringify(tsconfig, null, 2) + '\n'
+    `${JSON.stringify(tsconfig, null, 2)  }\n`
   );
 }
 
@@ -176,7 +176,7 @@ yarn-error.log*
     if (!existing.includes('# Agentic OS')) {
       // Append atomically using temp file + rename
       const tempPath = `${gitignorePath}.tmp`;
-      fs.writeFileSync(tempPath, existing + '\n# Agentic OS\n' + gitignore, 'utf-8');
+      fs.writeFileSync(tempPath, `${existing  }\n# Agentic OS\n${  gitignore}`, 'utf-8');
       fs.renameSync(tempPath, gitignorePath);
     }
   } catch (error: any) {

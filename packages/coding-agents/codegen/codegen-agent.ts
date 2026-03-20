@@ -12,7 +12,7 @@
  */
 
 import { BaseAgent } from '../base-agent';
-import {
+import type {
   AgentResult,
   AgentConfig,
   Task,
@@ -208,9 +208,9 @@ export class CodeGenAgent extends BaseAgent {
       // Check for common frameworks
       if (await this.fileExists('package.json')) {
         const pkg = JSON.parse(await fs.promises.readFile('package.json', 'utf-8'));
-        if (pkg.dependencies?.['react']) patterns.push('React framework');
-        if (pkg.dependencies?.['express']) patterns.push('Express.js backend');
-        if (pkg.dependencies?.['@anthropic-ai/sdk']) patterns.push('Anthropic AI integration');
+        if (pkg.dependencies?.['react']) {patterns.push('React framework');}
+        if (pkg.dependencies?.['express']) {patterns.push('Express.js backend');}
+        if (pkg.dependencies?.['@anthropic-ai/sdk']) {patterns.push('Anthropic AI integration');}
       }
     } catch (error) {
       // Ignore errors
@@ -246,7 +246,7 @@ export class CodeGenAgent extends BaseAgent {
     // Get README content
     try {
       const readme = await fs.promises.readFile('README.md', 'utf-8');
-      context.push('# Project Overview\n' + this.safeTruncate(readme, 2000));
+      context.push(`# Project Overview\n${  this.safeTruncate(readme, 2000)}`);
     } catch (error) {
       // No README
     }
@@ -254,7 +254,7 @@ export class CodeGenAgent extends BaseAgent {
     // Get sample code from agents/
     try {
       const baseAgent = await fs.promises.readFile('agents/base-agent.ts', 'utf-8');
-      context.push('# BaseAgent Pattern\n```typescript\n' + this.safeTruncate(baseAgent, 1000) + '\n```');
+      context.push(`# BaseAgent Pattern\n\`\`\`typescript\n${  this.safeTruncate(baseAgent, 1000)  }\n\`\`\``);
     } catch (error) {
       // No base agent
     }
@@ -366,7 +366,7 @@ export class CodeGenAgent extends BaseAgent {
         return this.generateDiscordConfig(spec);
 
       case 'readme-discord-badge':
-        return await this.addDiscordBadgeToReadme(spec);
+        return this.addDiscordBadgeToReadme(spec);
 
       case 'github-workflow':
         return this.generateGitHubWorkflow(spec);
@@ -819,7 +819,7 @@ jobs:
     try {
       const pkgPath = path.join(process.cwd(), 'package.json');
       const pkg = JSON.parse(require('fs').readFileSync(pkgPath, 'utf-8'));
-      if (pkg.name) return pkg.name;
+      if (pkg.name) {return pkg.name;}
     } catch {
       // Ignore
     }
@@ -937,9 +937,7 @@ jobs:
    * Calculate code generation metrics
    */
   private calculateMetrics(generatedCode: GeneratedCode): Partial<AgentMetrics> {
-    const totalLines = generatedCode.files.reduce((sum, file) => {
-      return sum + file.content.split('\n').length;
-    }, 0);
+    const totalLines = generatedCode.files.reduce((sum, file) => sum + file.content.split('\n').length, 0);
 
     return {
       linesChanged: totalLines,

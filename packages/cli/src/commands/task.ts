@@ -2,7 +2,7 @@
  * task — Task management via task-sync.sh (Master Data: tasks.json)
  * Integrated from miyabi-hub
  */
-import { Command } from "commander";
+import type { Command } from "commander";
 import chalk from "chalk";
 import { getTaskSyncPath } from "../utils/hub-paths.js";
 import { runScript, scriptExists } from "../utils/shell-bridge.js";
@@ -40,8 +40,8 @@ export function registerTaskCommand(program: Command): void {
     .option("-p, --priority <priority>", "Filter by priority (critical, high, medium, low)")
     .action((opts) => {
       const args = ["list"];
-      if (opts.status) args.push(opts.status);
-      if (opts.priority) args.push(opts.priority);
+      if (opts.status) {args.push(opts.status);}
+      if (opts.priority) {args.push(opts.priority);}
       runTaskSync(args);
     });
 
@@ -52,7 +52,7 @@ export function registerTaskCommand(program: Command): void {
     .option("-d, --due <date>", "Due date (YYYY-MM-DD)")
     .action((title, opts) => {
       const args = ["add", title, `priority:${opts.priority}`];
-      if (opts.due) args.push(`due:${opts.due}`);
+      if (opts.due) {args.push(`due:${opts.due}`);}
       runTaskSync(args);
     });
 

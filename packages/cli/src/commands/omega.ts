@@ -205,8 +205,8 @@ export function createOmegaCommand(): Command {
 
       // Show configuration
       console.log(chalk.cyan('Configuration:'));
-      if (options.issue) console.log(`  Issue: #${options.issue}`);
-      if (options.task) console.log(`  Task: ${options.task}`);
+      if (options.issue) {console.log(`  Issue: #${options.issue}`);}
+      if (options.task) {console.log(`  Task: ${options.task}`);}
       console.log(`  Agent: ${options.agent || 'codegen'}`);
       console.log(`  Learning: ${options.learning !== false ? 'enabled' : 'disabled'}`);
       console.log();

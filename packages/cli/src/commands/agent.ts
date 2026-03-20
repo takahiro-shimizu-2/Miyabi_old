@@ -8,7 +8,7 @@
 import chalk from 'chalk';
 import ora from 'ora';
 import Table from 'cli-table3';
-import { Command } from 'commander';
+import type { Command } from 'commander';
 import { isJsonMode, outputSuccess, outputError } from '../utils/agent-output';
 import {
   IssueAgent,
@@ -234,7 +234,7 @@ export async function runAgent(
     const { owner, name: repo } = repoInfo;
 
     // リポジトリアクセス権限チェック（セキュリティ）
-    if (!options.verbose) spinner.text = 'Verifying repository access...';
+    if (!options.verbose) {spinner.text = 'Verifying repository access...';}
     const hasAccess = await verifyTokenAccess(githubToken, owner, repo);
     if (!hasAccess) {
       spinner.fail(chalk.red('Access denied'));
@@ -244,7 +244,7 @@ export async function runAgent(
       );
     }
 
-    if (!options.verbose) spinner.text = `${agentName}Agent 実行中...`;
+    if (!options.verbose) {spinner.text = `${agentName}Agent 実行中...`;}
 
     // Agent実行 - miyabi-agent-sdk を使用
     let result: any;
@@ -295,10 +295,10 @@ export async function runAgent(
 
         const input: CodeGenInput = {
           taskId: `issue-${options.issue}`,
-          requirements: requirements,
+          requirements,
           context: {
             repository: repo,
-            owner: owner,
+            owner,
             baseBranch: 'main',
             relatedFiles: [], // TODO: 関連ファイル自動検出
           },
@@ -339,7 +339,7 @@ export async function runAgent(
             path: file.filename,
             content: '', // TODO: Fetch file content from PR
             action: (file.status === 'added' ? 'create' :
-                    file.status === 'removed' ? 'delete' : 'modify') as 'create' | 'modify' | 'delete',
+                    file.status === 'removed' ? 'delete' : 'modify'),
           }));
 
           const agent = new ReviewAgent({
@@ -347,7 +347,7 @@ export async function runAgent(
           });
 
           const input: ReviewInput = {
-            files: files,
+            files,
             standards: {
               minQualityScore: 80, // 80点基準
               requireTests: true,
@@ -381,20 +381,20 @@ export async function runAgent(
         if (!storage.hasCodeGen) {
           throw new Error(
             `CodeGenAgent output not found for issue #${issueNumber}. ` +
-            'Please run: miyabi agent run codegen --issue=' + issueNumber
+            `Please run: miyabi agent run codegen --issue=${  issueNumber}`
           );
         }
 
         if (!storage.hasReview) {
           throw new Error(
             `ReviewAgent output not found for issue #${issueNumber}. ` +
-            'Please run: miyabi agent run review --pr=XXX --issue=' + issueNumber
+            `Please run: miyabi agent run review --pr=XXX --issue=${  issueNumber}`
           );
         }
 
         // Load CodeGenAgent output
         const codegenOutput = loadCodeGenOutput(owner, repo, issueNumber);
-        if (!codegenOutput || !codegenOutput.files) {
+        if (!codegenOutput?.files) {
           throw new Error('Invalid CodeGenAgent output format');
         }
 
@@ -410,7 +410,7 @@ export async function runAgent(
         });
 
         const input: PRInput = {
-          issueNumber: issueNumber,
+          issueNumber,
           repository: repo,
           owner,
           files: codegenOutput.files,

@@ -7,7 +7,7 @@ import { existsSync } from "node:fs";
 
 /** HAYASHI_SHUNSUKE repository root */
 export function getHayashiRoot(): string {
-  if (process.env.HAYASHI_ROOT) return process.env.HAYASHI_ROOT;
+  if (process.env.HAYASHI_ROOT) {return process.env.HAYASHI_ROOT;}
 
   const home = process.env.HOME ?? "/Users/shunsukehayashi";
   return resolve(home, "dev", "HAYASHI_SHUNSUKE");

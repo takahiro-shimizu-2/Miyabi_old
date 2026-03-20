@@ -2,7 +2,7 @@
  * bus — Agent Skill Bus native API (11 subcommands)
  * Integrated from miyabi-hub — uses agent-skill-bus SDK directly
  */
-import { Command } from "commander";
+import type { Command } from "commander";
 import chalk from "chalk";
 import { resolve } from "node:path";
 import { existsSync, mkdirSync } from "node:fs";
@@ -41,7 +41,7 @@ export function registerBusCommand(program: Command): void {
       const baseDir = resolve(base, ".skill-bus");
       for (const sub of ["queue", "monitor", "watcher"]) {
         const dir = resolve(baseDir, sub);
-        if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+        if (!existsSync(dir)) {mkdirSync(dir, { recursive: true });}
       }
       console.log(chalk.green(`✓ ASB data directory initialized: ${baseDir}`));
     });
@@ -194,7 +194,7 @@ export function registerBusCommand(program: Command): void {
       if (opts.update) {
         const state = monitor.updateHealth();
         console.log(chalk.green(`✓ Health updated: ${state.lastUpdated}`));
-        if (opts.json) console.log(JSON.stringify(state, null, 2));
+        if (opts.json) {console.log(JSON.stringify(state, null, 2));}
         return;
       }
 

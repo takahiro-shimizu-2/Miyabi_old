@@ -212,8 +212,8 @@ export class SecurityValidator {
       const criticalIssues = result.issues.filter((issue) => issue.severity >= 90);
 
       throw new Error(
-        `Security validation failed: ${criticalIssues.length} critical issue(s) detected\n` +
-        criticalIssues.map((issue) => `  - ${issue.message} (severity: ${issue.severity})`).join('\n')
+        `Security validation failed: ${criticalIssues.length} critical issue(s) detected\n${
+        criticalIssues.map((issue) => `  - ${issue.message} (severity: ${issue.severity})`).join('\n')}`
       );
     }
   }

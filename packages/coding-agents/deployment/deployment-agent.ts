@@ -11,7 +11,7 @@
  */
 
 import { BaseAgent } from '../base-agent';
-import {
+import type {
   AgentResult,
   AgentConfig,
   Task,

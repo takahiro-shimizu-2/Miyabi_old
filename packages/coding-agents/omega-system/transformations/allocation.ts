@@ -176,7 +176,7 @@ function findBestAgent(task: GeneratedTask, capabilities: AgentCapability[]): Ag
   // If task already has an assigned agent, validate it
   if (task.assignedAgent) {
     const capability = capabilities.find(c => c.agentType === task.assignedAgent);
-    if (capability && capability.supportedTaskTypes.includes(task.type)) {
+    if (capability?.supportedTaskTypes.includes(task.type)) {
       return task.assignedAgent;
     }
   }

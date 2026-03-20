@@ -29,15 +29,11 @@
     "baseUrl": "."
   },
   "include": [
-    "tests/**/*",
     "vitest.config.ts"
   ],
   "exclude": [
     "node_modules",
     "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts",
-    "**/__tests__/**",
     "**/*.d.ts",
     "**/*.js",
     "**/*.js.map"

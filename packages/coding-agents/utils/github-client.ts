@@ -158,7 +158,7 @@ export class GitHubClient {
     owner: string,
     repo: string,
     issueNumbers: number[]
-  ): Promise<(Issue | null)[]> {
+  ): Promise<Array<Issue | null>> {
     return Promise.all(
       issueNumbers.map((issueNumber) => this.fetchIssue(owner, repo, issueNumber))
     );

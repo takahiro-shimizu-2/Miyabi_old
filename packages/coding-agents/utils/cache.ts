@@ -281,8 +281,8 @@ export class TTLCache<T> {
 
     for (const entry of this.cache.values()) {
       const age = now - entry.createdAt;
-      if (age > oldestAge) oldestAge = age;
-      if (age < newestAge) newestAge = age;
+      if (age > oldestAge) {oldestAge = age;}
+      if (age < newestAge) {newestAge = age;}
     }
 
     const totalRequests = this.hits + this.misses;

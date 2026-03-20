@@ -17,7 +17,7 @@
  */
 
 import { BaseAgent } from '../base-agent';
-import {
+import type {
   AgentResult,
   AgentConfig,
   Task,
@@ -223,7 +223,7 @@ export class ReviewAgent extends BaseAgent {
       }
 
       const result = await this.executeCommand(
-        'npx eslint --format json ' + safeFiles.join(' '),
+        `npx eslint --format json ${  safeFiles.join(' ')}`,
         { timeout: 60000 }
       );
 
@@ -393,11 +393,11 @@ export class ReviewAgent extends BaseAgent {
 
     // Generate recommendations
     const recommendations: string[] = [];
-    if (eslintScore < 80) recommendations.push('Fix ESLint errors to improve code quality');
-    if (typeScriptScore < 80) recommendations.push('Fix TypeScript errors for type safety');
-    if (securityScore < 80) recommendations.push('Address security vulnerabilities immediately');
-    if (testCoverageScore < 80) recommendations.push('Increase test coverage to meet 80% threshold');
-    if (score < 80) recommendations.push('Overall quality below threshold - review all issues');
+    if (eslintScore < 80) {recommendations.push('Fix ESLint errors to improve code quality');}
+    if (typeScriptScore < 80) {recommendations.push('Fix TypeScript errors for type safety');}
+    if (securityScore < 80) {recommendations.push('Address security vulnerabilities immediately');}
+    if (testCoverageScore < 80) {recommendations.push('Increase test coverage to meet 80% threshold');}
+    if (score < 80) {recommendations.push('Overall quality below threshold - review all issues');}
 
     return {
       score: Math.round(score),

@@ -5,14 +5,14 @@
  */
 
 import { BaseAgent } from './base-agent';
-import { Task, AgentResult, AgentConfig, AgentType } from './types/index';
-import {
+import type { Task, AgentResult, AgentConfig, AgentType } from './types/index';
+import type {
   AgentTemplate,
   AgentExecutionContext,
   AgentInstance,
   AgentExecutionRecord,
 } from './types/agent-template';
-import { HookManager } from './hooks/hook-manager';
+import type { HookManager } from './hooks/hook-manager';
 import { DynamicToolCreator } from './dynamic-tool-creator';
 
 export class DynamicAgent extends BaseAgent {
