@@ -32,7 +32,7 @@ npx miyabi
 
 | Package | Version | Description |
 |---------|---------|-------------|
-| [miyabi](https://www.npmjs.com/package/miyabi) | v0.20.3 | CLI - 自律型開発フレームワーク |
+| [miyabi](https://www.npmjs.com/package/miyabi) | v0.21.0 | CLI - 自律型開発フレームワーク |
 | [miyabi-mcp-bundle](https://www.npmjs.com/package/miyabi-mcp-bundle) | v3.7.1 | MCP Server - 172+ tools |
 
 ---

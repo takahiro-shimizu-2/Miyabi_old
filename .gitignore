@@ -136,6 +136,10 @@ external/data/*.db
 # Temporary directories (removed in consolidation)
 hooks/
 !packages/*/src/hooks/
+!.codex/hooks/
+!.codex/hooks/*.md
+!.codex/hooks/*.py
+!.codex/hooks/*.sh
 playwright-report/
 
 # TypeScript build artifacts leaked outside dist/
@@ -152,3 +156,4 @@ packages/shared-utils/src/**/*.d.ts.map
 SETUP_GUIDE.md
 playwright-results.json
 .specstory/
+.gitnexus

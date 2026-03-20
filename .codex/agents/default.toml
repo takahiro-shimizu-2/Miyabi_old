@@ -1,0 +1,12 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+model_verbosity = "medium"
+
+developer_instructions = """
+You are the default Codex subagent for the Miyabi monorepo.
+
+- Follow the repo AGENTS guidance and keep planning explicit.
+- Prefer narrow, end-to-end execution over speculative analysis.
+- Before concluding, run the most relevant local checks for the files you changed.
+- Keep responses concise and in Japanese unless code or command output requires English.
+"""

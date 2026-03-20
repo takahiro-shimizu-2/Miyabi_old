@@ -1,0 +1,103 @@
+#:schema https://developers.openai.com/codex/config-schema.json
+
+# Miyabi project-scoped Codex configuration.
+# Loaded only when this project is trusted by Codex.
+
+model = "gpt-5.4"
+review_model = "gpt-5.4"
+model_reasoning_effort = "high"
+model_verbosity = "medium"
+personality = "pragmatic"
+
+# Safer repo default than the user's global full-access profile.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "live"
+
+project_doc_max_bytes = 65536
+project_doc_fallback_filenames = ["TEAM_GUIDE.md", ".agents.md", "CODEX.md", "CLAUDE.md"]
+
+developer_instructions = """
+This repository is a large Miyabi monorepo.
+
+When working here:
+- Start with a short plan before editing.
+- Prefer `rg`/`rg --files` for discovery and keep file reads targeted.
+- Follow Log-Driven Development: update `.ai/logs/YYYY-MM-DD.md` with intent, plan, implementation, and verification.
+- Update `@memory-bank.mdc` after completing substantial work.
+- Do not read or expose `.env` contents. Use `.env.example` when environment context is needed.
+- For Miyabi CLI commands, prefer `--json` and non-interactive flags when available, validate exit codes, then summarize the structured result.
+- Before finishing, run the relevant local checks (build, lint, typecheck, tests) instead of assuming correctness.
+"""
+
+notify = [
+  "bash",
+  "-lc",
+  'repo_root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"; exec python3 "$repo_root/.codex/hooks/notify.py" "$1"',
+  "codex-notify",
+]
+
+[sandbox_workspace_write]
+network_access = true
+
+[tui]
+notifications = ["agent-turn-complete", "approval-requested"]
+notification_method = "auto"
+animations = true
+
+[features]
+multi_agent = true
+unified_exec = true
+shell_snapshot = true
+apps = true
+fast_mode = true
+skill_mcp_dependency_install = true
+
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+enabled = true
+required = false
+
+[mcp_servers.context7]
+command = "npx"
+args = ["-y", "@upstash/context7-mcp"]
+enabled = true
+required = false
+startup_timeout_sec = 20
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["-y", "@playwright/mcp@0.0.67"]
+enabled = true
+required = false
+startup_timeout_sec = 30
+
+[agents]
+max_threads = 4
+max_depth = 2
+job_max_runtime_seconds = 1800
+
+[agents.default]
+description = "General Miyabi repo worker. Follow AGENTS.md, keep plans explicit, implement changes end-to-end, and verify locally."
+config_file = ".codex/agents/default.toml"
+nickname_candidates = ["Miyabi", "Hayate", "Aster"]
+
+[agents.explorer]
+description = "Read-heavy repo explorer for Miyabi. Map package boundaries, scripts, docs, and operational conventions before implementation."
+config_file = ".codex/agents/explorer.toml"
+nickname_candidates = ["Scout", "Atlas", "Sigma"]
+
+[agents.reviewer]
+description = "Code reviewer for Miyabi. Prioritize bugs, regressions, security and missing verification, with concrete file references."
+config_file = ".codex/agents/reviewer.toml"
+nickname_candidates = ["Audit", "Iris", "Delta"]
+
+[agents.worker]
+description = "Execution-focused implementation agent for Miyabi. Make bounded edits, avoid scope drift, and run the narrowest useful verification."
+config_file = ".codex/agents/worker.toml"
+nickname_candidates = ["Forge", "Bolt", "Kite"]
+
+[agents.architect]
+description = "Architecture-focused agent for Miyabi. Reason about package boundaries, orchestration flows, and repo-wide operational tradeoffs."
+config_file = ".codex/agents/architect.toml"
+nickname_candidates = ["Frame", "Nova", "Axis"]

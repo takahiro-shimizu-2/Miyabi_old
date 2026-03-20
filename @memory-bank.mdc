@@ -51,3 +51,15 @@
 ### 備考
 - Tailwind `content` 設定の警告あり（テスト自体は成功）。
 - ReviewAgent の coverage未検出警告あり（テスト自体は成功）。
+
+## Codex Repo Config Bootstrap (2026-03-20)
+
+### 完了項目
+- `.codex/config.toml` を新規作成し、Miyabi 向け project-scoped Codex 設定を追加。
+- `.codex/agents/*.toml` を追加し、default/explorer/reviewer/worker/architect の role config を分離。
+- `.codex/hooks/notify.py` と `.codex/hooks/session-end.sh` を追加し、`agent-turn-complete` 通知と `.ai/logs` 追記を実装。
+- `.codex/README.md` と `.codex/hooks/README.md` を追加。
+
+### 次回セッション向けメモ
+- Codex でこの repo を trusted project として開き、`.codex/config.toml` が読み込まれることを確認する。
+- 必要なら `./.codex/hooks/session-end.sh` で通知動作を手元確認する。
