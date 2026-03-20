@@ -1,45 +1,120 @@
-[![Built by 合同会社みやび](https://img.shields.io/badge/Built%20by-合同会社みやび-blue?style=flat-square&logo=github)](https://miyabi-ai.jp)
-
 <div align="center">
 
 # 🌸 Miyabi
 
-[![npm version](https://img.shields.io/npm/v/miyabi.svg)](https://www.npmjs.com/package/miyabi)
-[![MCP Bundle](https://img.shields.io/npm/v/miyabi-mcp-bundle.svg?label=mcp-bundle)](https://www.npmjs.com/package/miyabi-mcp-bundle)
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+**The agentic development framework that turns GitHub Issues into production code.**
 
-### Issue を書く。コードが完成する。
-*Write an Issue. Code is completed.*
+[![npm version](https://img.shields.io/npm/v/miyabi.svg?style=flat-square)](https://www.npmjs.com/package/miyabi)
+[![npm downloads](https://img.shields.io/npm/dm/miyabi.svg?style=flat-square)](https://www.npmjs.com/package/miyabi)
+[![MCP Bundle](https://img.shields.io/npm/v/miyabi-mcp-bundle.svg?label=mcp-bundle&style=flat-square)](https://www.npmjs.com/package/miyabi-mcp-bundle)
+[![GitHub stars](https://img.shields.io/github/stars/ShunsukeHayashi/Miyabi?style=flat-square)](https://github.com/ShunsukeHayashi/Miyabi/stargazers)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](LICENSE)
+[![Follow @The_AGI_WAY](https://img.shields.io/twitter/follow/The_AGI_WAY?style=flat-square&logo=x&label=Follow)](https://x.com/The_AGI_WAY)
 
 ```bash
 npx miyabi
 ```
 
+**Issue to PR in 10-15 minutes. Zero human coding required.**
+
+[Quick Start](#quick-start) | [Why Miyabi?](#why-miyabi) | [CLI Commands](#cli-commands) | [Discord](https://discord.gg/ZpY9sxfYNm)
+
 </div>
 
 ---
 
-## 魔法の瞬間 / The Magic
+## The Magic
 
 ```
-📝 Issue を書く        →    🤖 AI が実装        →    ✅ PR が届く
-   Write an Issue            AI implements            PR arrives
+📝 Write an Issue    →    🤖 7 AI Agents collaborate    →    ✅ PR arrives
 ```
 
-**10-15分で完了。** *Done in 10-15 minutes.*
+Miyabi orchestrates 7 specialized coding agents that autonomously analyze, implement, review, test, and create pull requests — all triggered by a single GitHub Issue.
 
 ---
 
-## パッケージ / Packages
+## Why Miyabi?
+
+| Feature | Miyabi | CrewAI | AutoGen | LangGraph |
+|---------|--------|--------|---------|-----------|
+| **Issue → PR automation** | Built-in | Manual setup | Manual setup | Manual setup |
+| **GitHub-native (Issues as task queue)** | 53 labels + 24 workflows | No | No | No |
+| **MCP integration (172+ tools)** | Built-in | No | No | No |
+| **Agent Skill Bus (110+ skills)** | Built-in | No | No | No |
+| **Code intelligence (GitNexus)** | Built-in | No | No | No |
+| **Quality gate (auto-review + retry)** | Score 80+ or escalate | Manual | Manual | Manual |
+| **Distributed cluster execution** | Up to 6 machines | No | No | No |
+| **Zero-config quick start** | `npx miyabi` | pip install + config | pip install + config | pip install + config |
+| **Language** | TypeScript | Python | Python | Python |
+
+**Miyabi treats GitHub as an operating system** — Issues are the task queue, Labels are the state machine, Actions are the execution engine, and Webhooks are the event bus.
+
+---
+
+## Ecosystem
+
+Miyabi is a full-stack agentic framework. These are its core subsystems:
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        🌸 Miyabi                                │
+│                                                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌───────────────────────┐  │
+│  │ Miyabi CLI   │  │ Agent SDK    │  │ MCP Bundle            │  │
+│  │ 22 commands  │  │ 7 coding +   │  │ 172+ tools for        │  │
+│  │ npx miyabi   │  │ 14 business  │  │ Claude Desktop/Code   │  │
+│  └──────────────┘  └──────────────┘  └───────────────────────┘  │
+│                                                                 │
+│  ┌──────────────┐  ┌──────────────┐  ┌───────────────────────┐  │
+│  │ Agent Skill  │  │ GitNexus     │  │ GitHub as OS          │  │
+│  │ Bus          │  │ Code Intel   │  │ 53 labels × 24        │  │
+│  │ 110+ skills  │  │ Impact       │  │ workflows             │  │
+│  └──────────────┘  └──────────────┘  └───────────────────────┘  │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+| Component | Repository | Stars |
+|-----------|-----------|-------|
+| **Agent Skill Bus** | [ShunsukeHayashi/agent-skill-bus](https://github.com/ShunsukeHayashi/agent-skill-bus) | ![Stars](https://img.shields.io/github/stars/ShunsukeHayashi/agent-skill-bus?style=flat-square) |
+| **GitNexus** | [ShunsukeHayashi/gitnexus-stable-ops](https://github.com/ShunsukeHayashi/gitnexus-stable-ops) | ![Stars](https://img.shields.io/github/stars/ShunsukeHayashi/gitnexus-stable-ops?style=flat-square) |
+| **MCP Bundle** | Included in monorepo | [![npm](https://img.shields.io/npm/v/miyabi-mcp-bundle.svg?style=flat-square)](https://www.npmjs.com/package/miyabi-mcp-bundle) |
+
+---
+
+## Quick Start
+
+```bash
+# Install and run
+npx miyabi
+
+# Check system status
+npx miyabi status --json
+npx miyabi doctor --json
+
+# Full automation: Issue → Code → Test → PR
+npx miyabi cycle
+
+# Shortcuts
+npx miyabi fix 123        # Fix bug (Issue #123)
+npx miyabi build 123      # Add feature (Issue #123)
+npx miyabi ship           # Deploy to production
+
+# MCP Server for Claude Desktop/Code
+npm install -g miyabi-mcp-bundle
+```
+
+---
+
+## Packages
 
 | Package | npm | Description |
 |---------|-----|-------------|
-| [miyabi](https://www.npmjs.com/package/miyabi) | [![npm](https://img.shields.io/npm/v/miyabi.svg)](https://www.npmjs.com/package/miyabi) | CLI - 22コマンドの自律型開発フレームワーク |
-| [miyabi-mcp-bundle](https://www.npmjs.com/package/miyabi-mcp-bundle) | [![npm](https://img.shields.io/npm/v/miyabi-mcp-bundle.svg)](https://www.npmjs.com/package/miyabi-mcp-bundle) | MCP Server - 172+ tools for Claude Desktop/Code |
-| @miyabi/agent-sdk | v0.1.0 | Agent SDK - 7つのCoding Agent TypeScript実装 |
-| @agentic-os/core | v0.1.0 | Core - エージェントシステム基盤 |
+| [miyabi](https://www.npmjs.com/package/miyabi) | [![npm](https://img.shields.io/npm/v/miyabi.svg?style=flat-square)](https://www.npmjs.com/package/miyabi) | CLI - 22-command autonomous development framework |
+| [miyabi-mcp-bundle](https://www.npmjs.com/package/miyabi-mcp-bundle) | [![npm](https://img.shields.io/npm/v/miyabi-mcp-bundle.svg?style=flat-square)](https://www.npmjs.com/package/miyabi-mcp-bundle) | MCP Server - 172+ tools for Claude Desktop/Code |
+| @miyabi/agent-sdk | v0.1.0 | Agent SDK - 7 Coding Agents in TypeScript |
+| @agentic-os/core | v0.1.0 | Core - Agent system foundation |
 
-### モノレポ構成 / Monorepo Structure
+### Monorepo Structure
 
 ```
 packages/
@@ -59,120 +134,87 @@ packages/
 
 ---
 
-## 今すぐ試す / Quick Start
+## CLI Commands
 
-```bash
-# CLI
-npx miyabi
+### Core Commands
 
-# ステータス確認
-npx miyabi status --json
-npx miyabi doctor --json
+| Command | Description |
+|---------|-------------|
+| `miyabi status` | Project status (Issues/PRs/Agents) |
+| `miyabi doctor` | System diagnostics (git/node/npm/GitHub) |
+| `miyabi health` | Quick health check |
+| `miyabi init <name>` | New project (53 labels + 26 Actions) |
+| `miyabi install` | Add Miyabi to existing project |
+| `miyabi setup` | Setup guide (tokens/config) |
+| `miyabi onboard` | First-time onboarding wizard |
+| `miyabi auth` | GitHub OAuth (login/logout/status) |
+| `miyabi config` | Settings (get/set/list) |
 
-# 全自動サイクル
-npx miyabi cycle          # Issue → 実装 → テスト → PR
-npx miyabi auto           # Water Spider 全自動モード
+### Development Commands
 
-# ショートカット
-npx miyabi fix 123        # バグ修正 (Issue #123)
-npx miyabi build 123      # 機能追加 (Issue #123)
-npx miyabi ship           # 本番デプロイ
+| Command | Description |
+|---------|-------------|
+| `miyabi agent` | Run agent (coordinator/codegen/review/pr/deploy) |
+| `miyabi run` | Unified runner (codegen/review/deploy/full-cycle) |
+| `miyabi fix <issue>` | Bug fix shortcut |
+| `miyabi build <issue>` | Feature build shortcut |
+| `miyabi ship` | Production deploy shortcut |
+| `miyabi auto` | Water Spider full-auto mode |
+| `miyabi omega` | Omega 6-stage pipeline |
+| `miyabi cycle` | Issue → Code → Test → PR automation |
+| `miyabi sprint` | Sprint planning + batch Issue creation |
+| `miyabi pipeline` | Command composition (pipe/AND/OR/parallel) |
 
-# リリース管理
-npx miyabi release list   # リリース一覧
-npx miyabi release announce  # X/Discord 自動通知
+### Tool Commands
 
-# MCP Server (Claude Desktop/Code)
-npm install -g miyabi-mcp-bundle
-```
+| Command | Description |
+|---------|-------------|
+| `miyabi release` | Release management + X/Discord auto-notify |
+| `miyabi voice` | Voice-driven mode (VoiceBox/Google Home) |
+| `miyabi skills` | Agent Skill management (list/health/sync) |
+| `miyabi todos` | Auto-detect TODO/FIXME → create Issues |
+| `miyabi dashboard` | Dashboard management |
+| `miyabi docs` | Auto-generate documentation |
 
 ---
 
-## CLI コマンド一覧 / CLI Commands
+## Agent System
 
-### コアコマンド / Core Commands
-
-| Command | Description |
-|---------|-------------|
-| `miyabi status` | プロジェクト状態確認 (Issue/PR/Agent) |
-| `miyabi doctor` | システム診断 (git/node/npm/GitHub) |
-| `miyabi health` | クイックヘルスチェック (バージョン/OS情報) |
-| `miyabi init <name>` | 新規プロジェクト作成 (53ラベル + 26 Actions) |
-| `miyabi install` | 既存プロジェクトにMiyabi追加 |
-| `miyabi setup` | セットアップガイド (トークン/設定ファイル) |
-| `miyabi onboard` | 初回オンボーディングウィザード |
-| `miyabi auth` | GitHub OAuth 認証 (login/logout/status) |
-| `miyabi config` | 設定管理 (get/set/list) |
-
-### 開発コマンド / Development Commands
-
-| Command | Description |
-|---------|-------------|
-| `miyabi agent` | エージェント実行 (coordinator/codegen/review/pr/deploy) |
-| `miyabi run` | 統一実行 (codegen/review/deploy/full-cycle) |
-| `miyabi fix <issue>` | バグ修正ショートカット |
-| `miyabi build <issue>` | 機能追加ショートカット |
-| `miyabi ship` | 本番デプロイショートカット |
-| `miyabi auto` | Water Spider 全自動モード |
-| `miyabi omega` | Omega 6段階パイプライン |
-| `miyabi cycle` | Issue → 実装 → テスト → PR 全自動サイクル |
-| `miyabi sprint` | スプリント計画 + Issue一括作成 |
-| `miyabi pipeline` | コマンド合成 (pipe/AND/OR/parallel) |
-
-### ツールコマンド / Tool Commands
-
-| Command | Description |
-|---------|-------------|
-| `miyabi release` | リリース管理 + X/Discord 自動通知 |
-| `miyabi voice` | 音声駆動モード (VoiceBox/Google Home) |
-| `miyabi skills` | Agent Skill管理 (list/health/sync) |
-| `miyabi todos` | TODO/FIXME 自動検出 → Issue化 |
-| `miyabi dashboard` | ダッシュボード管理 |
-| `miyabi docs` | ドキュメント自動生成 |
-
----
-
-## エージェントシステム / Agent System
-
-### Coding Agents (7)
+### 7 Coding Agents
 
 | Agent | Role | Quality Gate |
 |-------|------|-------------|
-| **CoordinatorAgent** | タスク分解・DAG構築 | 統括 |
-| **IssueAgent** | Issue分析・53ラベル自動分類 | 分析 |
-| **CodeGenAgent** | コード生成 (Claude Sonnet 4) | 実行 |
-| **ReviewAgent** | コード品質 (100点満点, 80点以上で通過) | 実行 |
-| **TestAgent** | テスト実行・カバレッジ | 実行 |
-| **PRAgent** | PR作成 (Conventional Commits) | 実行 |
-| **DeploymentAgent** | CI/CD自動化 | 実行 |
+| **CoordinatorAgent** | Task decomposition + DAG | Orchestrator |
+| **IssueAgent** | Issue analysis + 53-label classification | Analysis |
+| **CodeGenAgent** | Code generation (Claude Sonnet 4) | Execution |
+| **ReviewAgent** | Code quality (100-point scale, 80+ to pass) | Execution |
+| **TestAgent** | Test execution + coverage | Execution |
+| **PRAgent** | PR creation (Conventional Commits) | Execution |
+| **DeploymentAgent** | CI/CD automation | Execution |
 
-### Business Agents (14)
+### 14 Business Agents
 
-マーケティング・セールス・コンテンツ・分析の14エージェント。
+Marketing, Sales, Content, and Analytics agents for end-to-end business automation.
 
-### 品質ゲート / Quality Gate
+### Quality Gate
 
 ```
-CodeGenAgent → ReviewAgent (スコア80+?) → [Yes] → PRAgent
+CodeGenAgent → ReviewAgent (score 80+?) → [Yes] → PRAgent
                     ↓ [No]
-              最大3回リトライ → 閾値未満なら人間にエスカレーション
+              Retry up to 3x → Below threshold → Escalate to human
 ```
 
 ---
 
 ## GitHub as Operating System
 
-Miyabi は GitHub をOSとして活用します:
-
 | GitHub Feature | OS Role |
 |---------------|---------|
-| **Issues** | タスクキュー |
-| **Labels** | 状態マシン (53ラベル × 10カテゴリ) |
-| **Projects V2** | カンバンボード / データレイヤー |
-| **Actions** | 実行エンジン (24ワークフロー) |
-| **Webhooks** | イベントバス |
-
-### 状態フロー / State Flow
+| **Issues** | Task queue |
+| **Labels** | State machine (53 labels x 10 categories) |
+| **Projects V2** | Kanban board / data layer |
+| **Actions** | Execution engine (24 workflows) |
+| **Webhooks** | Event bus |
 
 ```
 pending → analyzing → implementing → reviewing → done
@@ -180,44 +222,46 @@ pending → analyzing → implementing → reviewing → done
 
 ---
 
-## 主な機能 / Key Features
+## Key Features
 
 ### Agent Skill Bus (110+ Skills)
 
-Agent Skill Busと統合されたスキルベース拡張システム。
-code-reviewer, test-generator, commit-helper等のスキルをバス経由で動的にロード・実行。
+Dynamically load and execute skills via the bus — code-reviewer, test-generator, commit-helper, and 107 more.
 
 ```bash
-npx miyabi skills list    # 110+ スキル一覧
-npx miyabi skills health  # ヘルススコア確認
+npx miyabi skills list    # List 110+ skills
+npx miyabi skills health  # Health score
 ```
 
-### GNI (GitNexus Impact Analysis)
+> **[agent-skill-bus](https://github.com/ShunsukeHayashi/agent-skill-bus)** is the standalone skill engine that powers Miyabi's extensibility.
 
-コード変更前に依存関係・テストカバレッジ・他パッケージへの波及を自動分析。
+### GitNexus Code Intelligence
 
-### X/Discord 自動通知
+Automatic dependency analysis, test coverage mapping, and cross-package impact assessment before any code change.
 
-`miyabi release announce` でリリース情報をX (Twitter) API v2経由で自動投稿。
+> **[gitnexus-stable-ops](https://github.com/ShunsukeHayashi/gitnexus-stable-ops)** provides the code intelligence backbone.
 
-### 分散クラスター実行
+### Distributed Cluster Execution
 
-最大6台のマシン (MacBook + Windows + Mac mini×3) でタスクを分散実行。
-SSH/Tailscaleネットワーク経由でディスパッチ。
+Run tasks across up to 6 machines (MacBook + Windows + Mac mini x3) via SSH/Tailscale network dispatch.
+
+### X/Discord Auto-Notification
+
+`miyabi release announce` auto-posts release info via X (Twitter) API v2 and Discord webhooks.
 
 ---
 
-## 開発 / Development
+## Development
 
 ```bash
-# ルートレベル
+# Root level
 npm test                  # vitest
 npm run build             # TypeScript compile
 npm run lint              # ESLint
 npm run typecheck         # TypeScript type check
 npm run verify:all        # lint + typecheck + test + security
 
-# CLI パッケージ
+# CLI package
 cd packages/cli
 npm run dev               # tsx (development)
 npm run build             # tsc + fix-esm-imports
@@ -231,30 +275,39 @@ npm test                  # vitest
 
 ---
 
-## もっと詳しく / Learn More
-
-- 📖 [CLI ドキュメント](./packages/cli/README.md)
-- 🔧 [MCP Bundle ドキュメント](./packages/mcp-bundle/README.md)
-- 🤖 [Agent SDK](./packages/miyabi-agent-sdk/README.md)
-- 💬 [Discord コミュニティ](https://discord.gg/ZpY9sxfYNm)
-- 🐛 [Issue 報告](https://github.com/ShunsukeHayashi/Miyabi/issues)
-- 💖 [スポンサー](https://github.com/sponsors/ShunsukeHayashi)
-
----
-
-## 必要なもの / Requirements
+## Requirements
 
 - Node.js 18+
-- GitHub アカウント + `GITHUB_TOKEN`
+- GitHub account + `GITHUB_TOKEN`
 
 ---
 
-## ライセンス / License
+## Learn More
+
+- [CLI Documentation](./packages/cli/README.md)
+- [MCP Bundle Documentation](./packages/mcp-bundle/README.md)
+- [Agent SDK](./packages/miyabi-agent-sdk/README.md)
+- [Discord Community](https://discord.gg/ZpY9sxfYNm)
+- [Report Issues](https://github.com/ShunsukeHayashi/Miyabi/issues)
+- [Sponsor](https://github.com/sponsors/ShunsukeHayashi)
+
+---
+
+## Like Miyabi?
+
+If Miyabi helps your development workflow, consider:
+
+- **[Give it a Star](https://github.com/ShunsukeHayashi/Miyabi)** to help others discover it
+- **[Follow @The_AGI_WAY](https://x.com/The_AGI_WAY)** for updates and AI development insights
+- **[Join Discord](https://discord.gg/ZpY9sxfYNm)** to connect with the community
+- **[Sponsor](https://github.com/sponsors/ShunsukeHayashi)** to support continued development
+
+---
+
+## License
 
 [Apache 2.0](LICENSE) - Copyright (c) 2025-2026 Shunsuke Hayashi / 合同会社みやび
 
----
-
 <div align="center">
-<sub>Powered by Claude AI | Built with Miyabi Agent Society</sub>
+<sub>Built with Miyabi Agent Society | Powered by Claude AI</sub>
 </div>
