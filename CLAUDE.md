@@ -127,6 +127,54 @@ miyabi agent run codegen --issue=123 --json
 | 4 | NETWORK_ERROR |
 | 5 | AUTH_ERROR |
 
+## CLI Commands (30 commands)
+
+### Core
+```bash
+miyabi init <name>          # Create new project
+miyabi install              # Add Miyabi to existing project
+miyabi status --json        # Project status
+miyabi doctor --json        # System health check
+miyabi setup                # Setup wizard
+miyabi onboard              # First-time onboarding
+miyabi config               # Configuration management
+miyabi auth                 # GitHub authentication
+```
+
+### Agent Execution
+```bash
+miyabi agent run codegen --issue=123   # Run specific agent
+miyabi auto                            # Water Spider full automation
+miyabi omega --issue 123               # Omega pipeline (6-stage)
+miyabi run --task codegen              # Unified execution
+miyabi pipeline "/review | /deploy"    # Command composition
+miyabi fix 123                         # Bug fix shortcut
+miyabi build 123                       # Feature build shortcut
+miyabi ship                            # Deploy shortcut
+```
+
+### DevOps Integration (miyabi-hub)
+```bash
+miyabi gni impact <symbol>     # GitNexus code intelligence (14 subcommands)
+miyabi gni query "search"      # Semantic code search
+miyabi gni hotspots            # Most-depended-on symbols
+miyabi bus stats               # Agent Skill Bus queue stats (11 subcommands)
+miyabi bus enqueue "task"      # Add task to queue
+miyabi bus health              # Skill health monitoring
+miyabi bus record-run <skill>  # Record skill execution
+miyabi task list               # Task management (4 subcommands)
+miyabi task add "title"        # Add new task
+miyabi task done <id>          # Complete task
+miyabi cycle full              # Feedback loop (CHECK→DISPATCH→HEALTH→RECORD)
+miyabi release                 # Release management
+miyabi voice                   # Voice-First control
+miyabi skills                  # Claude Code skills management
+miyabi health                  # Quick health check
+miyabi todos                   # TODO comment detection
+miyabi dashboard               # Dashboard management
+miyabi docs                    # Documentation generation
+```
+
 ## Code Standards
 
 - **TypeScript**: Strict mode, ESM (`"type": "module"`)

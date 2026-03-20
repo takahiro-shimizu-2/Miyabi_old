@@ -15,17 +15,17 @@
 npx miyabi cycle check
 
 # 2. P0/P1タスク確認
-~/bin/tasks p0
+npx miyabi task list --priority critical
 
 # 3. GNIインデックス確認
-cd ~/dev/HAYASHI_SHUNSUKE && ~/.local/bin/gitnexus-stable status
-cd ~/dev/Miyabi && ~/.local/bin/gitnexus-stable status
+cd ~/dev/HAYASHI_SHUNSUKE && npx miyabi gni status
+cd ~/dev/Miyabi && npx miyabi gni status
 ```
 
 ### 1.2 開発作業時
 ```bash
 # 1. 変更前: GNI影響分析（必須）
-~/.local/bin/gitnexus-stable impact <変更対象シンボル>
+npx miyabi gni impact <変更対象シンボル>
 
 # 2. ブランチ作成
 git checkout -b feat/<機能名>
@@ -33,7 +33,7 @@ git checkout -b feat/<機能名>
 # 3. 実装
 
 # 4. 変更後: GNI再インデックス
-~/.local/bin/gitnexus-stable analyze
+npx miyabi gni reindex
 
 # 5. コミット → PR → マージ
 git add <ファイル>
@@ -42,7 +42,7 @@ git push -u origin feat/<機能名>
 gh pr create --title "タイトル" --body "内容"
 
 # 6. Skill Busに記録
-npx agent-skill-bus record-run --agent <agent> --skill <skill> --task "<task>" --result success --score 0.9
+npx miyabi bus record-run --agent <agent> --skill <skill> --task "<task>" --result success --score 0.9
 ```
 
 ### 1.3 リリース時
@@ -64,7 +64,7 @@ npx miyabi release list        # 現在のリリース確認
 ### 1.4 セッション終了時
 ```bash
 # 1. 全リポのgit status確認
-~/bin/cycle check
+npx miyabi cycle check
 
 # 2. 未コミット変更があればコミット
 
@@ -94,34 +94,34 @@ npx miyabi release list        # 現在のリリース確認
 ### 2.2 Pixel端末コマンド（~/bin/）
 | コマンド | 用途 |
 |---------|------|
-| `~/bin/cycle full` | フルサイクル実行 |
-| `~/bin/cycle check` | 状態チェック |
-| `~/bin/cycle distributed 300` | 分散マルチエージェント |
-| `~/bin/tasks list` | GitHub Issues一覧 |
-| `~/bin/tasks p0` | P0/P1タスクのみ |
-| `~/bin/tasks add "タイトル"` | 新規Issue作成 |
+| `npx miyabi cycle full` | フルサイクル実行 |
+| `npx miyabi cycle check` | 状態チェック |
+| `npx miyabi cycle distributed 300` | 分散マルチエージェント |
+| `npx miyabi task list` | GitHub Issues一覧 |
+| `npx miyabi task list --priority critical` | P0/P1タスクのみ |
+| `npx miyabi task add "タイトル"` | 新規Issue作成 |
 | `~/bin/announce "メッセージ"` | 音声出力 |
 | `~/bin/release-announce <repo>` | リリースXアナウンス |
 
 ### 2.3 GNI（GitNexus Impact Analysis）
 | コマンド | 用途 |
 |---------|------|
-| `gitnexus-stable status` | インデックス状態 |
-| `gitnexus-stable analyze` | 再インデックス |
-| `gitnexus-stable impact <target>` | 影響分析 |
-| `gitnexus-stable context <symbol>` | 360度ビュー |
-| `gitnexus-stable query "<query>"` | ナレッジ検索 |
-| `gitnexus-stable list` | インデックス済みリポ一覧 |
+| `npx miyabi gni status` | インデックス状態 |
+| `npx miyabi gni reindex` | 再インデックス |
+| `npx miyabi gni impact <target>` | 影響分析 |
+| `npx miyabi gni context <symbol>` | 360度ビュー |
+| `npx miyabi gni query "<query>"` | ナレッジ検索 |
+| `npx miyabi gni list` | インデックス済みリポ一覧 |
 
 ### 2.4 Agent Skill Bus
 | コマンド | 用途 |
 |---------|------|
-| `npx agent-skill-bus stats` | キュー統計 |
-| `npx agent-skill-bus dispatch` | 次タスク取得 |
-| `npx agent-skill-bus health` | スキルヘルス |
-| `npx agent-skill-bus flagged` | 問題スキル一覧 |
-| `npx agent-skill-bus enqueue ...` | タスクキューに追加 |
-| `npx agent-skill-bus record-run ...` | 実行結果記録 |
+| `npx miyabi bus stats` | キュー統計 |
+| `npx miyabi bus dispatch` | 次タスク取得 |
+| `npx miyabi bus health` | スキルヘルス |
+| `npx miyabi bus health --flagged` | 問題スキル一覧 |
+| `npx miyabi bus enqueue ...` | タスクキューに追加 |
+| `npx miyabi bus record-run ...` | 実行結果記録 |
 
 ### 2.5 OpenClaw
 | コマンド | 用途 |
@@ -210,8 +210,8 @@ npx miyabi release list で確認
 | 症状 | 対処 |
 |------|------|
 | SSH接続失敗 | `ssh -o ConnectTimeout=20 <host> "echo OK"` で再テスト |
-| GNIインデックスstale | `gitnexus-stable analyze` で再構築 |
-| スキルflagged | `npx agent-skill-bus record-run` でスコア更新 |
+| GNIインデックスstale | `npx miyabi gni reindex` で再構築 |
+| スキルflagged | `npx miyabi bus record-run` でスコア更新 |
 | OpenClaw障害 | `openclaw status` で確認、Gateway再起動は要確認 |
 | npm publish失敗 | `npm whoami` でログイン確認、`--ignore-scripts` で再試行 |
 | crontab変更不可 | osascript経由: `osascript -e tell app Terminal to do script ...` |

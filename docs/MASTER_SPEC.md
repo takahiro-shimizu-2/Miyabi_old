@@ -192,23 +192,23 @@ npx miyabi (統一CLI)
 
 ```bash
 # タスク管理
-~/bin/tasks list          # 全オープンIssue
-~/bin/tasks p0            # P0/P1のみ
-~/bin/tasks view <N>      # Issue詳細
+npx miyabi task list          # 全オープンIssue
+npx miyabi task list --priority critical  # P0/P1のみ
+npx miyabi task list          # Issue一覧
 
 # フィードバックループ
-~/bin/cycle full          # CHECK→DISPATCH→HEALTH→RECORD→REPORT
-~/bin/cycle check         # 状態検知のみ
-~/bin/cycle status        # JSON状態表示
+npx miyabi cycle full          # CHECK→DISPATCH→HEALTH→RECORD→REPORT
+npx miyabi cycle check         # 状態検知のみ
+npx miyabi cycle status        # JSON状態表示
 
 # OpenClawエージェント
 ssh macbook "openclaw status"
 ssh macbook "openclaw agent -m 'メッセージ' --agent main"
 
 # Skill Bus
-ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx agent-skill-bus stats"
-ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx agent-skill-bus flagged"
-ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx agent-skill-bus health"
+ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx miyabi bus stats"
+ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx miyabi bus health --flagged"
+ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx miyabi bus health"
 
 # Miyabi CLI
 ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx miyabi status --json"
@@ -229,7 +229,7 @@ ssh macbook "cd ~/dev/HAYASHI_SHUNSUKE && npx miyabi doctor"
 1. **この仕様書を唯一の真実のソースとする**
 2. タスク実行前にマスタープランの該当Milestoneを確認する
 3. agent-skill-busのロック機構で競合を防止する
-4. タスク完了後は `npx agent-skill-bus record-run` で記録する
+4. タスク完了後は `npx miyabi bus record-run` で記録する
 5. 全変更がゴール（npx miyabi統一）に向かっているか自問する
 6. 重要な完了・エラーは `~/bin/announce` で音声通知する
 7. OpenClawの設定変更は禁止（読み取り・メッセージ送信のみ）
